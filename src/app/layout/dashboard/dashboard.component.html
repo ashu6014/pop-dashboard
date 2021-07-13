@@ -1,4 +1,4 @@
-<div class="mb-20" fxLayout="row" fxLayout.lt-md="column" fxFlex fxLayoutGap="20px">
+<!-- <div class="mb-20" fxLayout="row" fxLayout.lt-md="column" fxFlex fxLayoutGap="20px">
     <div fxFlex>
         <app-stat [bgClass]="'danger'" [icon]="'dashboard'" [count]="13" [label]="'New Tickets!'"></app-stat>
     </div>
@@ -11,9 +11,9 @@
     <div fxFlex>
         <app-stat [bgClass]="'info'" [icon]="'contact_support'" [count]="13" [label]="'New Tickets!'"></app-stat>
     </div>
-</div>
+</div> -->
 
-<div class="mb-20" flFlex flexLayout="row" flexLayout.lt-md="column">
+<!-- <div class="mb-20" flFlex flexLayout="row" flexLayout.lt-md="column">
     <div fxFlex>
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
             <ng-container matColumnDef="position">
@@ -36,9 +36,11 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
     </div>
-</div>
+</div> -->
 
-<div class="mb-20" fxLayout="row" fxLayout.lt-md="column" fxFlex fxLayoutGap="20px">
+
+
+<!-- <div class="mb-20" fxLayout="row" fxLayout.lt-md="column" fxFlex fxLayoutGap="20px">
     <div fxFlex *ngFor="let item of places">
         <mat-card>
             <img mat-card-image [src]="item.imgSrc">
@@ -61,4 +63,36 @@
             </mat-card-actions>
         </mat-card>
     </div>
-</div>
+</div> -->
+
+<h4>Basic mat-select with initial value</h4>
+<mat-form-field appearance="fill">
+  <mat-label>Select the category</mat-label>
+  <mat-select [(value)]="selectedCategory">
+    <mat-option></mat-option>
+    <mat-option [value]="option.value" *ngFor="let option of categories">{{ option.viewValue }}</mat-option>
+  </mat-select>
+</mat-form-field>
+
+
+<mat-grid-list cols="2" rowHeight="2:1">
+    <mat-grid-tile>
+        <ngx-charts-bar-vertical
+  [view]="view"
+  [scheme]="colorScheme"
+  [results]="activityStructureFinal"
+  [gradient]="gradient"
+  [xAxis]="showXAxis"
+  [yAxis]="showYAxis"
+  [legend]="showLegend"
+  [showXAxisLabel]="showXAxisLabel"
+  [showYAxisLabel]="showYAxisLabel"
+  [xAxisLabel]="xAxisLabel"
+  [yAxisLabel]="yAxisLabel"
+  (select)="onSelect($event)">
+</ngx-charts-bar-vertical>
+    </mat-grid-tile>
+    <mat-grid-tile>2</mat-grid-tile>
+    <mat-grid-tile>3</mat-grid-tile>
+    <mat-grid-tile>4</mat-grid-tile>
+  </mat-grid-list>
