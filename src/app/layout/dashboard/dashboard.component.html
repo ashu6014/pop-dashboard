@@ -75,24 +75,26 @@
 </mat-form-field>
 
 
-<mat-grid-list cols="2" rowHeight="2:1">
-    <mat-grid-tile>
-        <ngx-charts-bar-vertical
-  [view]="view"
-  [scheme]="colorScheme"
-  [results]="activityStructureFinal"
-  [gradient]="gradient"
-  [xAxis]="showXAxis"
-  [yAxis]="showYAxis"
-  [legend]="showLegend"
-  [showXAxisLabel]="showXAxisLabel"
-  [showYAxisLabel]="showYAxisLabel"
-  [xAxisLabel]="xAxisLabel"
-  [yAxisLabel]="yAxisLabel"
-  (select)="onSelect($event)">
+<ngx-charts-bar-vertical
+[view]="view"
+[scheme]="colorScheme"
+[results]="activityStructureFinal"
+[gradient]="gradient"
+[xAxis]="showXAxis"
+[yAxis]="showYAxis"
+[legend]="showLegend"
+[showXAxisLabel]="showXAxisLabel"
+[showYAxisLabel]="showYAxisLabel"
+[xAxisLabel]="xAxisLabel"
+[yAxisLabel]="yAxisLabel">
 </ngx-charts-bar-vertical>
+
+
+<!-- <mat-grid-list cols="2" rowHeight="2:1">
+    <mat-grid-tile>
+  
     </mat-grid-tile>
     <mat-grid-tile>2</mat-grid-tile>
     <mat-grid-tile>3</mat-grid-tile>
     <mat-grid-tile>4</mat-grid-tile>
-  </mat-grid-list>
+  </mat-grid-list> -->
