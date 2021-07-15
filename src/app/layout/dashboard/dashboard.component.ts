@@ -47,7 +47,7 @@ export class DashboardComponent implements OnInit {
     }
 
     // options
-    view: any[] = [400, 200];  //700, 400
+    view: any[] = [700, 400];  //700, 400
     showXAxis = true;
     showYAxis = true;
     gradient = false;
