@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ComponentFactoryResolver, OnInit } from '@angular/core';
 import { single } from './data';
 import * as XLSX from 'xlsx';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
@@ -13,9 +13,27 @@ export class DashboardComponent implements OnInit {
     constructor(private http: HttpClient) {}
     single: any[];
     activityStructureFinal: any[];
+    sheetDataJson: any;
+    modeFinal: any[];
 
     ngOnInit() {
-        this.activityStructure();
+        this.getCsvData();
+    }
+
+    getCsvData(){
+        this.http.get('./assets/sample.xlsx', { responseType: 'arraybuffer' }).subscribe((file:ArrayBuffer)  => { 
+            let data = new Uint8Array(file);
+            var arr = new Array();    
+            for(var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);    
+            let bstr = arr.join("");
+            let workbook = XLSX.read(bstr, {type:"binary"});
+            let first_sheet_name = workbook.SheetNames[0];    
+            let worksheet = workbook.Sheets[first_sheet_name];    
+            this.sheetDataJson = XLSX.utils.sheet_to_json(worksheet,{raw:true})
+            this.activityStructure();
+            this.physicalGroup();
+            this.mode();
+          })
     }
 
     // options
@@ -28,6 +46,10 @@ export class DashboardComponent implements OnInit {
     xAxisLabel = 'Activity Structure';
     showYAxisLabel = true;
     yAxisLabel = 'Percentage';
+
+    showLabels: boolean = true;
+    isDoughnut: boolean = false;
+    legendPosition: string = 'below';
 
     colorScheme = {
          domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
@@ -47,17 +69,8 @@ export class DashboardComponent implements OnInit {
   selectedCategory = this.categories[0].value;
 
   activityStructure(){
-        this.http.get('./assets/sample.xlsx', { responseType: 'arraybuffer' }).subscribe((file:ArrayBuffer)  => { 
-        let data = new Uint8Array(file);
-        var arr = new Array();    
-        for(var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);    
-        let bstr = arr.join("");
-        let workbook = XLSX.read(bstr, {type:"binary"});
-        let first_sheet_name = workbook.SheetNames[0];    
-        let worksheet = workbook.Sheets[first_sheet_name];    
-        let sheetDataJson = XLSX.utils.sheet_to_json(worksheet,{raw:true})
         let asMap = new Map();
-        sheetDataJson.forEach(element => {
+        this.sheetDataJson.forEach(element => {
             if(!asMap.has(element["Activity Structure"])){
                 asMap.set(element["Activity Structure"], 0)
             }else{
@@ -85,13 +98,80 @@ export class DashboardComponent implements OnInit {
             }   
         });
         this.activityStructureFinal = testList
-        console.log(this.activityStructureFinal);
         Object.assign(this, { testList })
-        console.log(single)
-      })
+
+      }
+
+
+      physicalGroup(){
+        let physicalGroupMap = new Map([
+            [1 , "Total Class(Whole Group)"], [2, "Large Group"], 
+            [3, "Small Group"], [4, "2 Students Working Together"],
+            [5 , "1 Student"]
+        ]);
+        let physicalGroupList = [];
+        let pgMap = new Map();
+        
+        this.sheetDataJson.forEach(element => {
+            if(!pgMap.has(element["Physical Group"])){
+                pgMap.set(element["Physical Group"], 0)
+            }else{
+                let cnt = pgMap.get(element["Physical Group"]);
+                cnt+=1;
+                pgMap.set(element["Physical Group"], cnt);
+            }
+        });
+        pgMap.forEach((value:number, key:number)=> {
+            if(value>0){
+                let item = {
+                    name: physicalGroupMap.get(key),
+                    value: Math.round(pgMap.get(key)*100/60)
+                };
+                physicalGroupList.push(item);
+            }   
+        });
+     
+        Object.assign(this, { physicalGroupList })
+        console.log("phy", physicalGroupList)
+      }
+
+    mode(){
+        let mMap = new Map();
+        this.sheetDataJson.forEach(element => {
+            if(!mMap.has(element["Mode"])){
+                mMap.set(element["Mode"], 0)
+            }else{
+                let cnt = mMap.get(element["Mode"]);
+                cnt+=1;
+                mMap.set(element["Mode"], cnt);
+            }
+        });
+        let modeMap = new Map([
+            [1 , "writing"], [2, "reading"], [3, "aural"], [4, "verbal"],
+            [5 , "wr-re"], [6, "wr-au"], [7, "wr-ver"], [8, "re-wr"],
+            [9 , "re-au"], [10, "re-ver"], [11, "au-wr"], [12, "au-re"],
+            [13, "ver-wr"], [14, "ver-re"], [15, "ver-au"],[16, "au-re-ver"],
+            [17, "NA"], [18, "au-ver"]
+        ]);
+        let testList = [];
+        mMap.forEach((value:number, key:number)=> {
+            if(value>0){
+                console.log(key);
+                let item = {
+                    
+                    name: modeMap.get(key),
+                    value: Math.round(mMap.get(key)*100/60)
+                };
+                testList.push(item);
+            }   
+        });
+        this.modeFinal = testList
+        console.log(this.modeFinal);
+        Object.assign(this, { testList })
+      
+    }
   }
 
-}
 
 interface Category {
     value: string;
