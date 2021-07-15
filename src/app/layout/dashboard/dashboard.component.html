@@ -65,16 +65,19 @@
     </div>
 </div> -->
 
-<h4>Basic mat-select with initial value</h4>
-<mat-form-field appearance="fill">
-  <mat-label>Select the category</mat-label>
-  <mat-select [(value)]="selectedCategory">
-    <mat-option [value]="option.value" *ngFor="let option of categories">{{ option.viewValue }}</mat-option>
-  </mat-select>
-</mat-form-field>
+<mat-card>
+    Teacher Id: 123
+    School Id:123
+    District Id:123 
 
-
-
+    <mat-form-field appearance="fill">
+        <mat-label>Select the category</mat-label>
+        <mat-select [(value)]="selectedCategory">
+          <mat-option [value]="option.value" *ngFor="let option of categories">{{ option.viewValue }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      
+</mat-card>
 
 
 <mat-grid-list cols="2" rowHeight="2:1">
@@ -124,5 +127,20 @@
         [yAxisLabel]="yAxisLabel">
     </ngx-charts-bar-vertical>
     </mat-grid-tile>
-    <mat-grid-tile>4</mat-grid-tile>
+    <mat-grid-tile>
+        <p>ESL Strategy</p>
+        <ngx-charts-bar-vertical
+        [view]="view"
+        [scheme]="colorScheme"
+        [results]="eslStrategyFinal"
+        [gradient]="gradient"
+        [xAxis]="showXAxis"
+        [yAxis]="showYAxis"
+        [legend]="showLegend"
+        [showXAxisLabel]="showXAxisLabel"
+        [showYAxisLabel]="showYAxisLabel"
+        [xAxisLabel]="xAxisLabel"
+        [yAxisLabel]="yAxisLabel">
+    </ngx-charts-bar-vertical>
+    </mat-grid-tile>
   </mat-grid-list>

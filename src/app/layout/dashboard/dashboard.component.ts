@@ -15,6 +15,7 @@ export class DashboardComponent implements OnInit {
     activityStructureFinal: any[];
     sheetDataJson: any;
     modeFinal: any[];
+    eslStrategyFinal:any[];
 
     ngOnInit() {
         this.getCsvData();
@@ -33,11 +34,12 @@ export class DashboardComponent implements OnInit {
             this.activityStructure();
             this.physicalGroup();
             this.mode();
+            this.eslStrategy();
           })
     }
 
     // options
-    view: any[] = [700, 400];
+    view: any[] = [600, 300];  //700, 400
     showXAxis = true;
     showYAxis = true;
     gradient = false;
@@ -169,6 +171,39 @@ export class DashboardComponent implements OnInit {
         console.log(this.modeFinal);
         Object.assign(this, { testList })
       
+    }
+
+    eslStrategy(){
+            let eslMap = new Map();
+            this.sheetDataJson.forEach(element => {
+                if(!eslMap.has(element["ESL Strategy"])){
+                    eslMap.set(element["ESL Strategy"], 0)
+                }else{
+                    let cnt = eslMap.get(element["ESL Strategy"]);
+                    cnt+=1;
+                    eslMap.set(element["ESL Strategy"], cnt);
+                }
+            });
+            let eslStrategyMap = new Map([
+                [1 , "QS"], [2, "ALS"], [3, "VS"], [4, "MR"],
+                [5 , "AO"], [6, "CG"], [7, "CC"], [8, "LC"],
+                [9 , "IT"], [10, "NA"]
+            ]);
+            let testList = [];
+            eslMap.forEach((value:number, key:number)=> {
+                if(value>0){
+                    console.log(key);
+                    let item = {
+                        
+                        name: eslStrategyMap.get(key),
+                        value: Math.round(eslMap.get(key)*100/60)
+                    };
+                    testList.push(item);
+                }   
+            });
+            this.eslStrategyFinal = testList
+            console.log(this.eslStrategyFinal);
+            Object.assign(this, { testList })
     }
   }
 
