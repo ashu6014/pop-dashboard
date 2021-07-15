@@ -16,6 +16,7 @@ export class DashboardComponent implements OnInit {
     sheetDataJson: any;
     modeFinal: any[];
     eslStrategyFinal:any[];
+    cirriculumAreaCategory: string;
 
     ngOnInit() {
         this.getCsvData();
@@ -35,6 +36,7 @@ export class DashboardComponent implements OnInit {
             this.physicalGroup();
             this.mode();
             this.eslStrategy();
+            this.cirriculumArea();
           })
     }
 
@@ -204,6 +206,20 @@ export class DashboardComponent implements OnInit {
             this.eslStrategyFinal = testList
             console.log(this.eslStrategyFinal);
             Object.assign(this, { testList })
+    }
+
+    cirriculumArea(){
+        let cirriculumAreaMap = new Map([
+            [1 , "Read/Lit"], [2, "Math"], [3, "Spell"], [4, "Hand"],
+            [5 , "Science"], [6, "Soc Sci"], [7, "Health"], [8, "PE"],
+            [9 , "Music"], [10, "Art"], [11, "Lang"], [12, "Compos"],
+            [13, "Non-ac"], [14, "ESL"]
+        ]);
+
+        let caMap = new Map();
+        this.cirriculumAreaCategory = cirriculumAreaMap.get(this.sheetDataJson[0]['Curriculum'])
+        console.log(this.sheetDataJson)
+        console.log("cirriculumAreaCategory", this.cirriculumAreaCategory)
     }
   }
 
