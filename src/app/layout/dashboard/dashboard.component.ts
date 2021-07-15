@@ -16,7 +16,10 @@ export class DashboardComponent implements OnInit {
     sheetDataJson: any;
     modeFinal: any[];
     eslStrategyFinal:any[];
+    languageContentFinal: any[];
     cirriculumAreaCategory: string;
+    SLofIFinal : any[];
+    TLofIFinal : any[];
 
     ngOnInit() {
         this.getCsvData();
@@ -37,11 +40,14 @@ export class DashboardComponent implements OnInit {
             this.mode();
             this.eslStrategy();
             this.cirriculumArea();
+            this.languageContent();
+            this.studentLanguageOfInstruction();
+            this.teacherLanguageOfInstruction();
           })
     }
 
     // options
-    view: any[] = [600, 300];  //700, 400
+    view: any[] = [400, 200];  //700, 400
     showXAxis = true;
     showYAxis = true;
     gradient = false;
@@ -150,6 +156,7 @@ export class DashboardComponent implements OnInit {
                 mMap.set(element["Mode"], cnt);
             }
         });
+        console.log(this.sheetDataJson)
         let modeMap = new Map([
             [1 , "writing"], [2, "reading"], [3, "aural"], [4, "verbal"],
             [5 , "wr-re"], [6, "wr-au"], [7, "wr-ver"], [8, "re-wr"],
@@ -221,6 +228,106 @@ export class DashboardComponent implements OnInit {
         console.log(this.sheetDataJson)
         console.log("cirriculumAreaCategory", this.cirriculumAreaCategory)
     }
+
+    languageContent(){
+        let languageContentMap = new Map([
+            [1 , "Social"], [2, "Academic"], [3, "Light Cog"], [4, "Dns Cog"]
+        ]);
+
+        let lcMap = new Map();
+        lcMap.set(1,0);
+        lcMap.set(2,0);
+        lcMap.set(3,0);
+        lcMap.set(4,0);
+        this.sheetDataJson.forEach(element => {
+            let cnt = lcMap.get(element["Language Content"]);
+            cnt+=1;
+            lcMap.set(element["Language Content"], cnt);
+            
+        });
+
+        this.languageContentFinal = [
+            {
+                name: "Social + Academic",
+                value: (lcMap.get(1) + lcMap.get(2) )*100/60
+            },
+            {
+                name: "Light Cog + Dns Cog",
+                value: (lcMap.get(3) + lcMap.get(4) )*100/60
+            }
+        ]
+        let testlist = this.languageContentFinal;
+        Object.assign(this, { testlist })
+    } 
+
+    studentLanguageOfInstruction(){
+        let langOfInsMap = new Map([
+            [1 , "L1"], [2, "L2"], [3, "L1-2"], [4, "L2-1"], [5 , "NA"]
+        ]);
+        //Lang. of Instruction(S)
+        //Lang. of Instruction(T)
+        let SlofIMap = new Map();
+        
+        this.sheetDataJson.forEach(element => {
+            if(!SlofIMap.has(element["Lang. of Instruction(S)"])){
+                SlofIMap.set(element["Lang. of Instruction(S)"], 0)
+            }else{
+                let cnt = SlofIMap.get(element["Lang. of Instruction(S)"]);
+                cnt+=1;
+                SlofIMap.set(element["Lang. of Instruction(S)"], cnt);
+            }
+        });
+        
+        let testList1 = [];
+        
+        SlofIMap.forEach((value:number, key:number)=> {
+                if(value>0){
+                    console.log(key);
+                    let item = {
+                        name: langOfInsMap.get(key),
+                        value: Math.round(SlofIMap.get(key)*100/60)
+                    };
+                    testList1.push(item);
+                }   
+            });
+          
+        
+        this.SLofIFinal = testList1;
+        Object.assign(this, { testList1 })
+        
+    }
+
+    teacherLanguageOfInstruction(){
+        console.log("here")
+        let langOfInsMap = new Map([
+            [1 , "L1"], [2, "L2"], [3, "L1-2"], [4, "L2-1"], [5 , "NA"]
+        ]);
+        let TlofIMap = new Map();
+        this.sheetDataJson.forEach(element => {
+            if(!TlofIMap.has(element["Lang. of Instruction(T)"])){
+                TlofIMap.set(element["Lang. of Instruction(T)"], 0)
+            }else{
+                let cnt = TlofIMap.get(element["Lang. of Instruction(T)"]);
+                cnt+=1;
+                TlofIMap.set(element["Lang. of Instruction(T)"], cnt);
+            }
+        });
+        let testList2 = [];
+        TlofIMap.forEach((value:number, key:number)=> {
+            if(value>0){
+                console.log(key);
+                let item = {
+                    name: langOfInsMap.get(key),
+                    value: Math.round(TlofIMap.get(key)*100/60)
+                };
+                testList2.push(item);
+            }   
+        });
+        this.TLofIFinal = testList2;
+        console.log("testlist2", testList2)
+        Object.assign(this, { testList2 })
+    }
+
   }
 
 
