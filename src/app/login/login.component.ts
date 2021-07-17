@@ -14,12 +14,14 @@ export class LoginComponent implements OnInit {
     formGroup: FormGroup;
     titleAlert: string = 'This field is required';
     post: any = '';
+    accessEmailList: any[];
 
     constructor(private router: Router, private formBuilder: FormBuilder) { }
 
     ngOnInit() { 
         this.createForm();
-        this.setChangeValidate()
+        this.setChangeValidate();
+        this.accessEmailList = ['aishwaryateegulla4@tamu.com', 'cindy@tamu.edu']
     }
 
     createForm() {
@@ -62,6 +64,12 @@ export class LoginComponent implements OnInit {
 
     onLogin() {
         localStorage.setItem('isLoggedin', 'true');
-        this.router.navigate(['/dashboard']);
+        console.log("this", this.formGroup.value['email'])
+        let email = this.formGroup.value['email'];
+        if(email == 'aishwaryateegulla4@tamu.edu' || email =='cindy@tamu.edu'){
+            this.router.navigate(['/dashboard']);
+        }else{
+            this.router.navigate(['/login']);
+        }
     }
 }
