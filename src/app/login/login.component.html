@@ -1,22 +1,27 @@
 <div class="login-page">
     <div class="content">
-        <!-- <h1 class="app-name">Sb Admin Material</h1> -->
-        <form class="login-form" fxFlex  >
+        <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)" class="login-form">
             <div class="text-center">
-                <h2 class="app-name">Sb Admin Material</h2>
+                <h2 class="app-name">POP DASHBOARD</h2>
             </div>
             <div fxFlex  fxlayout="row" fxlayout.lt-md="column">
                 <div fxFlexFill>
                     <mat-form-field class="w-100">
-                        <input matInput placeholder="Email">
-                    </mat-form-field>
+                        <input matInput placeholder="Emailaddress" formControlName="email">
+                        <mat-error *ngIf="!formGroup.controls['email'].valid && formGroup.controls['email'].touched">
+                          {{ getErrorEmail() }}
+                        </mat-error>
+                      </mat-form-field>
                 </div>
             </div>
             <div fxFlex  fxLayout="row" fxLayout.lt-md="column">
                 <div fxFlexFill>
                     <mat-form-field class="w-100">
-                        <input matInput type="password" placeholder="Password">
-                    </mat-form-field>
+                        <input matInput placeholder="Password" formControlName="password">
+                        <!-- <mat-error *ngIf="!formGroup.controls['password'].valid && formGroup.controls['password'].touched">
+                          {{ getErrorPassword() }}
+                        </mat-error> -->
+                      </mat-form-field>
                 </div>
             </div>
             <div fxFlex  fxLayout="row" fxLayout.lt-md="column" style="margin: 20px 0 30px 0">
@@ -32,7 +37,11 @@
                     <button mat-raised-button color="primary" class="w-100" (click)="onLogin()">Login</button>
                 </div>
             </div>
-
         </form>
+            
+
+        
     </div>
 </div>
+
+

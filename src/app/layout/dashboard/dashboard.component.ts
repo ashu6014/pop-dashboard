@@ -2,6 +2,7 @@ import { Component, ComponentFactoryResolver, OnInit } from '@angular/core';
 import { single } from './data';
 import * as XLSX from 'xlsx';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { templateVisitAll } from '@angular/compiler';
 
 @Component({
     selector: 'app-dashboard',
@@ -20,6 +21,8 @@ export class DashboardComponent implements OnInit {
     cirriculumAreaCategory: string;
     SLofIFinal : any[];
     TLofIFinal : any[];
+    physicalGroupList : any[];
+    languageContentCombined: any[];
 
     ngOnInit() {
         this.getCsvData();
@@ -47,7 +50,7 @@ export class DashboardComponent implements OnInit {
     }
 
     // options
-    view: any[] = [700, 400];  //700, 400
+    view: any[] = [400, 200];  //700, 400
     showXAxis = true;
     showYAxis = true;
     gradient = false;
@@ -115,11 +118,11 @@ export class DashboardComponent implements OnInit {
 
       physicalGroup(){
         let physicalGroupMap = new Map([
-            [1 , "Total Class(Whole Group)"], [2, "Large Group"], 
-            [3, "Small Group"], [4, "2 Students Working Together"],
-            [5 , "1 Student"]
+            [1 , "TC"], [2, "LG"], 
+            [3, "SG"], [4, "Pairs"],
+            [5 , "Single"]
         ]);
-        let physicalGroupList = [];
+        let testList = [];
         let pgMap = new Map();
         
         this.sheetDataJson.forEach(element => {
@@ -137,12 +140,13 @@ export class DashboardComponent implements OnInit {
                     name: physicalGroupMap.get(key),
                     value: Math.round(pgMap.get(key)*100/60)
                 };
-                physicalGroupList.push(item);
+                testList.push(item);
             }   
         });
      
-        Object.assign(this, { physicalGroupList })
-        console.log("phy", physicalGroupList)
+        Object.assign(this, { testList })
+        this.physicalGroupList = testList;
+        console.log("phy", testList)
       }
 
     mode(){
@@ -247,6 +251,25 @@ export class DashboardComponent implements OnInit {
         });
 
         this.languageContentFinal = [
+            {
+                name: "Social",
+                value: (lcMap.get(1))*100/60
+            },
+            {
+                name: "Academic",
+                value: (lcMap.get(2))*100/60
+            },
+            {
+                name: "Light Cog",
+                value: (lcMap.get(3))*100/60
+            },
+            {
+                name: "Dns Cog",
+                value: (lcMap.get(4))*100/60
+            },
+        ]
+
+        this.languageContentCombined = [
             {
                 name: "Social + Academic",
                 value: (lcMap.get(1) + lcMap.get(2) )*100/60
