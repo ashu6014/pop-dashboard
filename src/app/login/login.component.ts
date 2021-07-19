@@ -15,7 +15,6 @@ export class LoginComponent implements OnInit {
     titleAlert: string = 'This field is required';
     post: any = '';
     accessEmailList: any[];
-    userAllowed: boolean = false;
     hide = true;
 
     constructor(private router: Router, private formBuilder: FormBuilder) { }
@@ -73,12 +72,12 @@ export class LoginComponent implements OnInit {
             observer.complete();
           }, 1200)
         })
-        this.userAllowed = true;
+        
       }
     
 
       onLogin() {
-        if(this.userAllowed == true){
+        if(this.formGroup.get('email').status == 'VALID'){
           localStorage.setItem('isLoggedin', 'true');
           this.router.navigate(['/dashboard']);
         }
