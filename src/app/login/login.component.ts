@@ -15,13 +15,14 @@ export class LoginComponent implements OnInit {
     titleAlert: string = 'This field is required';
     post: any = '';
     accessEmailList: any[];
+    userAllowed: boolean = false;
+    hide = true;
 
     constructor(private router: Router, private formBuilder: FormBuilder) { }
 
     ngOnInit() { 
         this.createForm();
         this.setChangeValidate();
-        this.accessEmailList = ['aishwaryateegulla4@tamu.com', 'cindy@tamu.edu']
     }
 
     createForm() {
@@ -70,13 +71,19 @@ export class LoginComponent implements OnInit {
             let result = (db.indexOf(control.value) !== -1) ? null : { 'alreadyInUse': true };
             observer.next(result);
             observer.complete();
-          }, 2000)
+          }, 1200)
         })
+        this.userAllowed = true;
       }
     
 
-    onLogin() {
-        localStorage.setItem('isLoggedin', 'true');
-            this.router.navigate(['/dashboard']);
+      onLogin() {
+        if(this.userAllowed == true){
+          localStorage.setItem('isLoggedin', 'true');
+          this.router.navigate(['/dashboard']);
+        }
+        else{
+            this.router.navigate(['/login']);
+        }
     }
 }

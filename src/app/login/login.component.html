@@ -7,7 +7,7 @@
             <div fxFlex  fxlayout="row" fxlayout.lt-md="column" class="loginFormField">
                 <div fxFlexFill>
                     <mat-form-field class="w-100" appearance = "outline">
-                        <input matInput placeholder="Emailaddress" formControlName="email">
+                        <input  matInput placeholder="Email" formControlName="email">
                         <mat-error *ngIf="!formGroup.controls['email'].valid && formGroup.controls['email'].touched">
                           {{ getErrorEmail() }}
                         </mat-error>
@@ -17,7 +17,10 @@
             <div fxFlex  fxLayout="row" fxLayout.lt-md="column" class="loginFormField">
                 <div fxFlexFill>
                     <mat-form-field class="w-100" appearance = "outline">
-                        <input matInput placeholder="Password" formControlName="password">
+                        <input type= "password" matInput [type]="hide ? 'password' : 'text'" placeholder="Password" formControlName="password">
+                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
                         <mat-error *ngIf="!formGroup.controls['password'].valid && formGroup.controls['password'].touched">
                           {{ getErrorPassword() }}
                         </mat-error>
