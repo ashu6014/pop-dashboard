@@ -111,8 +111,8 @@
 
 <mat-grid-list cols="2" rowHeight="2:1">
     <mat-grid-tile> 
-        <div fxFlex>
-            <h4>Activity Structure</h4>
+        <div>
+            <p class="chartLabel">Activity Structure<p>
             <ngx-charts-bar-vertical
             [view]="view"
             [scheme]="colorScheme"
@@ -130,91 +130,106 @@
           
     </mat-grid-tile>
     <mat-grid-tile>
-        <p>Physical Group</p>
-        <ngx-charts-pie-chart
+        <div>
+            <p class="chartLabel">Physical Group<p>
+                <ngx-charts-pie-chart
+                    [view]="view"
+                    [scheme]="colorScheme"
+                    [results]="physicalGroupList"
+                    [gradient]="gradient"
+                    [legend]="showLegend"
+                    [legendPosition]="legendPosition"
+                    [labels]="showLabels"
+                    [doughnut]="isDoughnut"
+          >
+        </ngx-charts-pie-chart>
+        </div>
+
+    </mat-grid-tile>
+    <mat-grid-tile>
+        <div>
+            <p class="chartLabel">Mode Of Communication</p>
+            <ngx-charts-bar-vertical
             [view]="view"
             [scheme]="colorScheme"
-            [results]="physicalGroupList"
+            [results]="modeFinal"
             [gradient]="gradient"
+            [xAxis]="showXAxis"
+            [yAxis]="showYAxis"
             [legend]="showLegend"
-            [legendPosition]="legendPosition"
-            [labels]="showLabels"
-            [doughnut]="isDoughnut"
-  >
-</ngx-charts-pie-chart>
+            [showXAxisLabel]="showXAxisLabel"
+            [showYAxisLabel]="showYAxisLabel"
+            [xAxisLabel]="xModeOfCommunication"
+            [yAxisLabel]="yAxisLabel">
+        </ngx-charts-bar-vertical>
+        </div>
     </mat-grid-tile>
     <mat-grid-tile>
-        <ngx-charts-bar-vertical
-        [view]="view"
-        [scheme]="colorScheme"
-        [results]="modeFinal"
-        [gradient]="gradient"
-        [xAxis]="showXAxis"
-        [yAxis]="showYAxis"
-        [legend]="showLegend"
-        [showXAxisLabel]="showXAxisLabel"
-        [showYAxisLabel]="showYAxisLabel"
-        [xAxisLabel]="xModeOfCommunication"
-        [yAxisLabel]="yAxisLabel">
-    </ngx-charts-bar-vertical>
-    </mat-grid-tile>
-    <mat-grid-tile>
-        <ngx-charts-bar-vertical
-        [view]="view"
-        [scheme]="colorScheme"
-        [results]="eslStrategyFinal"
-        [gradient]="gradient"
-        [xAxis]="showXAxis"
-        [yAxis]="showYAxis"
-        [legend]="showLegend"
-        [showXAxisLabel]="showXAxisLabel"
-        [showYAxisLabel]="showYAxisLabel"
-        [xAxisLabel]="xESLStrategy"
-        [yAxisLabel]="yAxisLabel">
-    </ngx-charts-bar-vertical>
-    </mat-grid-tile>
-    <mat-grid-tile>
-        <p>Language Content</p>
-        <ngx-charts-pie-chart
+        <div>
+            <p class="chartLabel">ESL Strategy</p>
+            <ngx-charts-bar-vertical
             [view]="view"
             [scheme]="colorScheme"
-            [results]="languageContentFinal"
+            [results]="eslStrategyFinal"
             [gradient]="gradient"
+            [xAxis]="showXAxis"
+            [yAxis]="showYAxis"
             [legend]="showLegend"
-            [legendPosition]="legendPosition"
-            [labels]="showLabels"
-            [doughnut]="isDoughnut"
-  >
-</ngx-charts-pie-chart>
+            [showXAxisLabel]="showXAxisLabel"
+            [showYAxisLabel]="showYAxisLabel"
+            [xAxisLabel]="xESLStrategy"
+            [yAxisLabel]="yAxisLabel">
+        </ngx-charts-bar-vertical>
+        </div>
+       
     </mat-grid-tile>
     <mat-grid-tile>
-        <p>Language of Instruction(Student)</p>
-        <ngx-charts-pie-chart
-            [view]="view"
-            [scheme]="colorScheme"
-            [results]="SLofIFinal"
-            [gradient]="gradient"
-            [legend]="showLegend"
-            [legendPosition]="legendPosition"
-            [labels]="showLabels"
-            [doughnut]="isDoughnut"
-  >
+        <div>
+            <p class="chartLabel">Language Content</p>
+            <ngx-charts-pie-chart
+                [view]="view"
+                [scheme]="colorScheme"
+                [results]="languageContentFinal"
+                [gradient]="gradient"
+                [legend]="showLegend"
+                [legendPosition]="legendPosition"
+                [labels]="showLabels"
+                [doughnut]="isDoughnut"
+      >
     </ngx-charts-pie-chart>
-    
-    
+        </div>
+       
     </mat-grid-tile>
     <mat-grid-tile>
-        <p>Language of Instruction(Teacher)</p>
-        <ngx-charts-pie-chart
-        [view]="view"
-        [scheme]="colorScheme"
-        [results]="TLofIFinal"
-        [gradient]="gradient"
-        [legend]="showLegend"
-        [legendPosition]="legendPosition"
-        [labels]="showLabels"
-        [doughnut]="isDoughnut"
->
-</ngx-charts-pie-chart> 
+        <div>
+            <p class="chartLabel">Language of Instruction(Student)</p>
+            <ngx-charts-pie-chart
+                [view]="view"
+                [scheme]="colorScheme"
+                [results]="SLofIFinal"
+                [gradient]="gradient"
+                [legend]="showLegend"
+                [legendPosition]="legendPosition"
+                [labels]="showLabels"
+                [doughnut]="isDoughnut"
+      >
+        </ngx-charts-pie-chart>
+        </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+        <div>
+            <p class="chartLabel">Language of Instruction(Teacher)</p>
+            <ngx-charts-pie-chart
+            [view]="view"
+            [scheme]="colorScheme"
+            [results]="TLofIFinal"
+            [gradient]="gradient"
+            [legend]="showLegend"
+            [legendPosition]="legendPosition"
+            [labels]="showLabels"
+            [doughnut]="isDoughnut"
+    >
+    </ngx-charts-pie-chart>  
+        </div>   
     </mat-grid-tile>
   </mat-grid-list>
