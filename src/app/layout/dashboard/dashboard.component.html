@@ -11,7 +11,50 @@
     <div fxFlex>
         <app-stat [bgClass]="'info'" [icon]="'contact_support'" [count]="13" [label]="'New Tickets!'"></app-stat>
     </div>
-</div> -->
+</div>-->
+
+<div class="mb-20" fxLayout="row" fxLayout.lt-md="column" fxFlex fxLayoutGap="20px">
+    <div fxFlex>
+        <mat-card>
+            <mat-list>
+                <mat-list-item>
+                    <mat-icon mat-list-icon>school</mat-icon>
+                    <p matLine>School Id: {{schoolId}}</p>
+                </mat-list-item>
+                <mat-list-item>
+                    <mat-icon mat-list-icon>account_box</mat-icon>
+                    <p matLine>Teacher Id: {{teacherId}}</p>
+                </mat-list-item>
+                
+                <mat-list-item>
+                    <mat-icon mat-list-icon>location_on</mat-icon>
+                    <p matLine>District Id: {{districtId}}</p>
+                </mat-list-item>      
+            </mat-list>
+        </mat-card>
+    </div>
+    <div fxFlex>
+        <mat-card>
+            <mat-list>
+                <mat-list-item style="margin-bottom:20px">
+                    <mat-icon mat-list-icon>account_box</mat-icon>
+                    <p matLine>Cirriculum Area: {{cirriculumAreaCategory}}</p>
+                </mat-list-item>
+                
+                <mat-list-item style="margin-bottom:10px">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Select the category</mat-label>
+                        <mat-select [(value)]="selectedCategory">
+                          <mat-option [value]="option.value" *ngFor="let option of categories">{{ option.viewValue }}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                </mat-list-item>
+            </mat-list>
+            <input mat-button color="primary" style="background-color: aqua;" type="file" style="display: inline-block;" (change)="incomingfile($event)" accept=".xlsx">
+            <button mat-button style="background-color: #500000; color: white;" (click)="Upload()">Visualize</button>
+        </mat-card>
+    </div>
+</div>
 
 <!-- <div class="mb-20" flFlex flexLayout="row" flexLayout.lt-md="column">
     <div fxFlex>
@@ -39,8 +82,8 @@
 </div> -->
 
 
-
-<!-- <div class="mb-20" fxLayout="row" fxLayout.lt-md="column" fxFlex fxLayoutGap="20px">
+<!-- 
+<div class="mb-20" fxLayout="row" fxLayout.lt-md="column" fxFlex fxLayoutGap="20px">
     <div fxFlex *ngFor="let item of places">
         <mat-card>
             <img mat-card-image [src]="item.imgSrc">
@@ -65,25 +108,12 @@
     </div>
 </div> -->
 
-<mat-card style="margin-bottom: 60px;">
-    Teacher Id: 123
-    School Id:123
-    District Id:123 
-
-    <mat-form-field appearance="fill">
-        <mat-label>Select the category</mat-label>
-        <mat-select [(value)]="selectedCategory">
-          <mat-option [value]="option.value" *ngFor="let option of categories">{{ option.viewValue }}</mat-option>
-        </mat-select>
-      </mat-form-field>
-      
-</mat-card>
-
 
 <mat-grid-list cols="2" rowHeight="2:1">
-    <mat-grid-tile>
-        <p>Activity Structure</p>
-        <ngx-charts-bar-vertical
+    <mat-grid-tile> 
+        <div fxFlex>
+            <h4>Activity Structure</h4>
+            <ngx-charts-bar-vertical
             [view]="view"
             [scheme]="colorScheme"
             [results]="activityStructureFinal"
@@ -93,9 +123,11 @@
             [legend]="showLegend"
             [showXAxisLabel]="showXAxisLabel"
             [showYAxisLabel]="showYAxisLabel"
-            [xAxisLabel]="xAxisLabel"
+            [xAxisLabel]="xActivtiyStructure"
             [yAxisLabel]="yAxisLabel">
-        </ngx-charts-bar-vertical>
+        </ngx-charts-bar-vertical> 
+        </div>    
+          
     </mat-grid-tile>
     <mat-grid-tile>
         <p>Physical Group</p>
@@ -112,7 +144,6 @@
 </ngx-charts-pie-chart>
     </mat-grid-tile>
     <mat-grid-tile>
-        <p>Mode of Communication</p>
         <ngx-charts-bar-vertical
         [view]="view"
         [scheme]="colorScheme"
@@ -123,12 +154,11 @@
         [legend]="showLegend"
         [showXAxisLabel]="showXAxisLabel"
         [showYAxisLabel]="showYAxisLabel"
-        [xAxisLabel]="xAxisLabel"
+        [xAxisLabel]="xModeOfCommunication"
         [yAxisLabel]="yAxisLabel">
     </ngx-charts-bar-vertical>
     </mat-grid-tile>
     <mat-grid-tile>
-        <p>ESL Strategy</p>
         <ngx-charts-bar-vertical
         [view]="view"
         [scheme]="colorScheme"
@@ -139,7 +169,7 @@
         [legend]="showLegend"
         [showXAxisLabel]="showXAxisLabel"
         [showYAxisLabel]="showYAxisLabel"
-        [xAxisLabel]="xAxisLabel"
+        [xAxisLabel]="xESLStrategy"
         [yAxisLabel]="yAxisLabel">
     </ngx-charts-bar-vertical>
     </mat-grid-tile>

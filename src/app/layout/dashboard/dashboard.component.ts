@@ -23,6 +23,38 @@ export class DashboardComponent implements OnInit {
     TLofIFinal : any[];
     physicalGroupList : any[];
     languageContentCombined: any[];
+    districtId : any;
+    schoolId : any;
+    teacherId: any;
+
+    //adding here
+    arrayBuffer:any;
+    file:File;
+    incomingfile(event) 
+      {
+      this.file= event.target.files[0]; 
+      }
+    
+     Upload() {
+          let fileReader = new FileReader();
+            fileReader.onload = (e) => {
+                this.arrayBuffer = fileReader.result;
+                var data = new Uint8Array(this.arrayBuffer);
+                var arr = new Array();
+                for(var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
+                var bstr = arr.join("");
+                var workbook = XLSX.read(bstr, {type:"binary"});
+                var first_sheet_name = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[first_sheet_name];
+                console.log(XLSX.utils.sheet_to_json(worksheet,{raw:true}));
+            }
+            fileReader.readAsArrayBuffer(this.file);
+    }
+
+
+
+
+
 
     ngOnInit() {
         this.getCsvData();
@@ -38,6 +70,9 @@ export class DashboardComponent implements OnInit {
             let first_sheet_name = workbook.SheetNames[0];    
             let worksheet = workbook.Sheets[first_sheet_name];    
             this.sheetDataJson = XLSX.utils.sheet_to_json(worksheet,{raw:true})
+            this.districtId = this.sheetDataJson[0]['District ID']
+            this.schoolId = this.sheetDataJson[0]['School ID'];
+            this.teacherId = this.sheetDataJson[0]['Teacher ID']
             this.activityStructure();
             this.physicalGroup();
             this.mode();
@@ -50,7 +85,7 @@ export class DashboardComponent implements OnInit {
     }
 
     // options
-    view: any[] = [400, 200];  //700, 400
+    view: any[] = [480, 240];  //700, 400
     showXAxis = true;
     showYAxis = true;
     gradient = false;
@@ -63,6 +98,15 @@ export class DashboardComponent implements OnInit {
     showLabels: boolean = true;
     isDoughnut: boolean = false;
     legendPosition: string = 'below';
+
+    //labels for the charts
+    xActivtiyStructure = 'Activity Structure';
+    xPhysicalGroup = 'Physical Group';
+    xModeOfCommunication = 'Mode of Communication';
+    xESLStrategy = 'ESL Strategy'
+    
+
+   
 
     colorScheme = {
          domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
