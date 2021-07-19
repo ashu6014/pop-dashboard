@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
     createForm() {
         let emailregex: RegExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         this.formGroup = this.formBuilder.group({
-          'email': [null, [Validators.required, Validators.pattern(emailregex)]],
+          'email': [null, [Validators.required, Validators.pattern(emailregex)], this.checkUserAccess],
           'name': [null, Validators.required],
           'password': [null, [Validators.required]],
           'description': [null, [Validators.required, Validators.minLength(5), Validators.maxLength(10)]],
@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
      getErrorEmail() {
         return this.formGroup.get('email').hasError('required') ? 'Field is required' :
           this.formGroup.get('email').hasError('pattern') ? 'Not a valid emailaddress' :
-            this.formGroup.get('email').hasError('alreadyInUse') ? 'This emailaddress is already in use' : '';
+            this.formGroup.get('email').hasError('alreadyInUse') ? 'You do not have access to this dashboard' : '';
       }
     
       getErrorPassword() {
@@ -60,16 +60,23 @@ export class LoginComponent implements OnInit {
       onSubmit(post) {
         this.post = post;
       }
+
+      checkUserAccess(control) {
+        // mimic http database access
+        let db = ['aishwaryateegulla4@tamu.edu'];
+        return new Observable(observer => {
+          setTimeout(() => {
+            console.log("control",control)
+            let result = (db.indexOf(control.value) !== -1) ? null : { 'alreadyInUse': true };
+            observer.next(result);
+            observer.complete();
+          }, 2000)
+        })
+      }
     
 
     onLogin() {
         localStorage.setItem('isLoggedin', 'true');
-        console.log("this", this.formGroup.value['email'])
-        let email = this.formGroup.value['email'];
-        if(email == 'aishwaryateegulla4@tamu.edu' || email =='cindy@tamu.edu'){
             this.router.navigate(['/dashboard']);
-        }else{
-            this.router.navigate(['/login']);
-        }
     }
 }
