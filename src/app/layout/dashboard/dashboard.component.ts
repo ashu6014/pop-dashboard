@@ -30,10 +30,9 @@ export class DashboardComponent implements OnInit {
     //adding here
     arrayBuffer:any;
     file:File;
-    incomingfile(event) 
-      {
+    incomingfile(event) {
       this.file= event.target.files[0]; 
-      }
+    }
     
      Upload() {
           let fileReader = new FileReader();
@@ -47,13 +46,22 @@ export class DashboardComponent implements OnInit {
                 var first_sheet_name = workbook.SheetNames[0];
                 var worksheet = workbook.Sheets[first_sheet_name];
                 console.log(XLSX.utils.sheet_to_json(worksheet,{raw:true}));
+                //adding here
+                this.sheetDataJson = XLSX.utils.sheet_to_json(worksheet,{raw:true})
+                this.districtId = this.sheetDataJson[0]['District ID']
+                this.schoolId = this.sheetDataJson[0]['School ID'];
+                this.teacherId = this.sheetDataJson[0]['Teacher ID']
+                this.activityStructure();
+                this.physicalGroup();
+                this.mode();
+                this.eslStrategy();
+                this.cirriculumArea();
+                this.languageContent();
+                this.studentLanguageOfInstruction();
+                this.teacherLanguageOfInstruction();
             }
             fileReader.readAsArrayBuffer(this.file);
     }
-
-
-
-
 
 
     ngOnInit() {

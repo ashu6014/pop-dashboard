@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { MatTabsModule } from '@angular/material/tabs';
 
 
 @Component({
@@ -63,7 +64,7 @@ export class LoginComponent implements OnInit {
 
       checkUserAccess(control) {
         // mimic http database access
-        let db = ['aishwaryateegulla4@tamu.edu'];
+        let db = ['aishwaryateegulla4@tamu.edu', 'cguerrero@tamu.edu', 'sunil_krishna_kumar@tamu.edu'];
         return new Observable(observer => {
           setTimeout(() => {
             console.log("control",control)
