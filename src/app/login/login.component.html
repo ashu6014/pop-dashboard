@@ -1,8 +1,18 @@
 <div class="login-page">
     <div class="content">
-        <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)" class="login-form">
-            <div class="text-center">
-                <h2 class="app-name">POP DASHBOARD</h2>
+        
+        <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)" class="login-form"><div >
+            <img  src="assets/images/TAM-LogoBox.png" width="100" height="100" class="anmLogo">
+            <div class="deptInfo">
+                <p>Education & Human Development</p>
+                <p>Centre for Research & Development in Dual Language & Literacy Acquisition</p>  
+            </div>
+           
+          </div>
+          <mat-divider></mat-divider>
+
+            <div class="text-center" style="padding-top: 20px;;">
+                <p  style="font-size: 24px; font-weight: 600;"    class="app-name">POP DASHBOARD</p>
             </div>
             <div fxFlex  fxlayout="row" fxlayout.lt-md="column" class="loginFormField">
                 <div fxFlexFill>
@@ -40,11 +50,14 @@
                     <button mat-raised-button id="loginButton" class="w-100" (click)="onLogin()">Login</button>
                 </div>
             </div>
-        </form>
-            
 
-        
+            
+          
+                
+        </form>
     </div>
+
+    
 </div>
 
 

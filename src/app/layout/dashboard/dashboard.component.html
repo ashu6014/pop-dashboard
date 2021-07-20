@@ -18,16 +18,16 @@
         <mat-card>
             <mat-list>
                 <mat-list-item>
-                    <mat-icon mat-list-icon>school</mat-icon>
+                    <mat-icon class="dashboard-icons" mat-list-icon>school</mat-icon>
                     <p matLine>School Id: {{schoolId}}</p>
                 </mat-list-item>
                 <mat-list-item>
-                    <mat-icon mat-list-icon>account_box</mat-icon>
+                    <mat-icon class="dashboard-icons" mat-list-icon>account_box</mat-icon>
                     <p matLine>Teacher Id: {{teacherId}}</p>
                 </mat-list-item>
                 
                 <mat-list-item>
-                    <mat-icon mat-list-icon>location_on</mat-icon>
+                    <mat-icon class="dashboard-icons" mat-list-icon>location_on</mat-icon>
                     <p matLine>District Id: {{districtId}}</p>
                 </mat-list-item>      
             </mat-list>
@@ -37,7 +37,7 @@
         <mat-card>
             <mat-list>
                 <mat-list-item style="margin-bottom:20px">
-                    <mat-icon mat-list-icon>account_box</mat-icon>
+                    <mat-icon class="dashboard-icons" mat-list-icon>library_books</mat-icon>
                     <p matLine>Cirriculum Area: {{cirriculumAreaCategory}}</p>
                 </mat-list-item>
                 
@@ -109,7 +109,7 @@
 </div> -->
 
 
-<mat-grid-list cols="2" rowHeight="2:1">
+<mat-grid-list cols="2" rowHeight="2:1.25">
     <mat-grid-tile> 
         <div>
             <p class="chartLabel">Activity Structure<p>
@@ -186,10 +186,41 @@
     <mat-grid-tile>
         <div>
             <p class="chartLabel">Language Content</p>
-            <ngx-charts-pie-chart
+            <ngx-charts-bar-vertical
+            [view]="view"
+            [scheme]="colorScheme"
+            [results]="languageContentFinal"
+            [gradient]="gradient"
+            [xAxis]="showXAxis"
+            [yAxis]="showYAxis"
+            [legend]="showLegend"
+            [showXAxisLabel]="showXAxisLabel"
+            [showYAxisLabel]="showYAxisLabel"
+            [xAxisLabel]="xLanguageContent"
+            [yAxisLabel]="yAxisLabel">
+        </ngx-charts-bar-vertical>
+            <!-- <ngx-charts-pie-chart
                 [view]="view"
                 [scheme]="colorScheme"
                 [results]="languageContentFinal"
+                [gradient]="gradient"
+                [legend]="showLegend"
+                [legendPosition]="legendPosition"
+                [labels]="showLabels"
+                [doughnut]="isDoughnut"
+      >
+    </ngx-charts-pie-chart> -->
+        </div>
+       
+    </mat-grid-tile>
+    <mat-grid-tile>
+        <div>
+            <p class="chartLabel">Language Content(Combined)</p>
+            
+            <ngx-charts-pie-chart
+                [view]="view"
+                [scheme]="colorScheme"
+                [results]="languageContentCombined"
                 [gradient]="gradient"
                 [legend]="showLegend"
                 [legendPosition]="legendPosition"

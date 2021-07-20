@@ -64,7 +64,9 @@ export class LoginComponent implements OnInit {
 
       checkUserAccess(control) {
         // mimic http database access
-        let db = ['aishwaryateegulla4@tamu.edu', 'cguerrero@tamu.edu', 'sunil_krishna_kumar@tamu.edu'];
+        let db = ['aishwaryateegulla4@tamu.edu', 'cguerrero@tamu.edu', 'sunil_krishna_kumar@tamu.edu',
+      'a-lara@tamu.edu', 'kara.sutton@tamu.edu', 'fuhuitong@tamu.edu', 'beverly.irby@tamu.edu', 
+      'shifangtang03@tamu.edu'];
         return new Observable(observer => {
           setTimeout(() => {
             console.log("control",control)
@@ -75,6 +77,17 @@ export class LoginComponent implements OnInit {
         })
         
       }
+
+
+
+
+
+
+
+
+
+
+
     
 
       onLogin() {

@@ -93,7 +93,7 @@ export class DashboardComponent implements OnInit {
     }
 
     // options
-    view: any[] = [480, 240];  //700, 400
+    view: any[] = [480, 250];  //700, 400
     showXAxis = true;
     showYAxis = true;
     gradient = false;
@@ -112,9 +112,8 @@ export class DashboardComponent implements OnInit {
     xPhysicalGroup = 'Physical Group';
     xModeOfCommunication = 'Mode of Communication';
     xESLStrategy = 'ESL Strategy'
+    xLanguageContent = 'Language Content'
     
-
-   
 
     colorScheme = {
          domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
@@ -123,7 +122,6 @@ export class DashboardComponent implements OnInit {
   categories: Category[] = [
     {value: 'all', viewValue: 'All Categories'},
     {value: 'eslStrategy', viewValue: 'ESL Strategy'},
-    {value: 'curriculum', viewValue: 'Curriculum'},
     {value: 'physicalGroup', viewValue: 'Physical Group'},
     {value: 'activityStructure', viewValue: 'Activity structure'},
     {value: 'communicationMode', viewValue: 'Communication Mode'},
@@ -250,9 +248,9 @@ export class DashboardComponent implements OnInit {
                 }
             });
             let eslStrategyMap = new Map([
-                [1 , "QS"], [2, "ALS"], [3, "VS"], [4, "MR"],
-                [5 , "AO"], [6, "CG"], [7, "CC"], [8, "LC"],
-                [9 , "IT"], [10, "NA"]
+                [1 , "Questioning Strategies"], [2, "Academic Language Scaffolding"], [3, "Visual scaffolding"], [4, "Manipulatives and Realia"],
+                [5 , "Advance Organizers"], [6, "Collaborative / Cooperative Grouping"], [7, "Content connections"], [8, "L1 Clarification"],
+                [9 , "Integrate Technology"], [10, "NA"]
             ]);
             let testList = [];
             eslMap.forEach((value:number, key:number)=> {
@@ -273,10 +271,10 @@ export class DashboardComponent implements OnInit {
 
     cirriculumArea(){
         let cirriculumAreaMap = new Map([
-            [1 , "Read/Lit"], [2, "Math"], [3, "Spell"], [4, "Hand"],
-            [5 , "Science"], [6, "Soc Sci"], [7, "Health"], [8, "PE"],
-            [9 , "Music"], [10, "Art"], [11, "Lang"], [12, "Compos"],
-            [13, "Non-ac"], [14, "ESL"]
+            [1 , "Reading/Literacy"], [2, "Math"], [3, "Spell"], [4, "Handwriting"],
+            [5 , "Science"], [6, "Social Sciences / Social Studies"], [7, "Health"], [8, "PE"],
+            [9 , "Music"], [10, "Art"], [11, "Language"], [12, "Composition"],
+            [13, "Non-academic"], [14, "English as Second Language"]
         ]);
 
         let caMap = new Map();
@@ -304,30 +302,30 @@ export class DashboardComponent implements OnInit {
 
         this.languageContentFinal = [
             {
-                name: "Social",
+                name: "Social routines",
                 value: (lcMap.get(1))*100/60
             },
             {
-                name: "Academic",
+                name: "Academic routines",
                 value: (lcMap.get(2))*100/60
             },
             {
-                name: "Light Cog",
+                name: "Light Cognitive",
                 value: (lcMap.get(3))*100/60
             },
             {
-                name: "Dns Cog",
+                name: "Dense Cognitive",
                 value: (lcMap.get(4))*100/60
             },
         ]
 
         this.languageContentCombined = [
             {
-                name: "Social + Academic",
+                name: "Social routines + Academic routines",
                 value: (lcMap.get(1) + lcMap.get(2) )*100/60
             },
             {
-                name: "Light Cog + Dns Cog",
+                name: "Light Cognitive + Dense Cognitive",
                 value: (lcMap.get(3) + lcMap.get(4) )*100/60
             }
         ]
