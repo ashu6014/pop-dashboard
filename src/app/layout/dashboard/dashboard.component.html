@@ -1,19 +1,4 @@
-<!-- <div class="mb-20" fxLayout="row" fxLayout.lt-md="column" fxFlex fxLayoutGap="20px">
-    <div fxFlex>
-        <app-stat [bgClass]="'danger'" [icon]="'dashboard'" [count]="13" [label]="'New Tickets!'"></app-stat>
-    </div>
-    <div fxFlex>
-        <app-stat [bgClass]="'warn'" [icon]="'view_list'" [count]="12" [label]="'New task!'"></app-stat>
-    </div>
-    <div fxFlex>
-        <app-stat [bgClass]="'success'" [icon]="'shopping_cart'" [count]="124" [label]="'New Orders!'"></app-stat>
-    </div>
-    <div fxFlex>
-        <app-stat [bgClass]="'info'" [icon]="'contact_support'" [count]="13" [label]="'New Tickets!'"></app-stat>
-    </div>
-</div>-->
-
-<div class="mb-20" fxLayout="row" fxLayout.lt-md="column" fxFlex fxLayoutGap="20px">
+<div id="pop-dashboard" class="mb-20" fxLayout="row" fxLayout.lt-md="column" fxFlex fxLayoutGap="20px">
     <div fxFlex>
         <mat-card>
             <mat-list>
@@ -52,6 +37,7 @@
             </mat-list>
             <input mat-button color="primary" style="background-color: aqua;" type="file" style="display: inline-block;" (change)="incomingfile($event)" accept=".xlsx">
             <button mat-button style="background-color: #500000; color: white;" (click)="Upload()">Visualize</button>
+            <button mat-button style="background-color: #500000; color: white; margin-left: 10px;" (click)="Download('pop-dashboard')">Download to PDF</button>
         </mat-card>
     </div>
 </div>
