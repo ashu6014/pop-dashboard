@@ -73,7 +73,7 @@ export class DashboardComponent implements OnInit {
     }
 
     categoryChange(event){
-     
+        console.log(event.value)
         this.allCategories = false;
         this.selectedCategory = event.value;
         if(this.selectedCategory == 'all'){
