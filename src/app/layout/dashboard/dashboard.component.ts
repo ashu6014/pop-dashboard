@@ -32,6 +32,7 @@ export class DashboardComponent implements OnInit {
     schoolId : any;
     teacherId: any;
     allCategories: boolean = true;
+    uploaded: boolean = false;
    
 
     //adding here
@@ -39,6 +40,7 @@ export class DashboardComponent implements OnInit {
     file:File;
     incomingfile(event) {
       this.file= event.target.files[0]; 
+      this.uploaded = true;
     }
     
      Upload() {
@@ -54,6 +56,7 @@ export class DashboardComponent implements OnInit {
                 var worksheet = workbook.Sheets[first_sheet_name];
                 //adding here
                 this.sheetDataJson = XLSX.utils.sheet_to_json(worksheet,{raw:true})
+                console.log("this.sheetDataJson", this.sheetDataJson)
                 this.districtId = this.sheetDataJson[0]['District ID']
                 this.schoolId = this.sheetDataJson[0]['School ID'];
                 this.teacherId = this.sheetDataJson[0]['Teacher ID']

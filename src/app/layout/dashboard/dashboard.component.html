@@ -1,76 +1,166 @@
-<div id="pop-dashboard" class="mb-20" fxLayout="row" fxLayout.lt-md="column" fxFlex fxLayoutGap="20px">
-    <div fxFlex>
-        <mat-card>
-            <mat-list>
-                <mat-list-item>
-                    <mat-icon class="dashboard-icons" mat-list-icon>school</mat-icon>
-                    <p matLine>School Id: {{schoolId}}</p>
-                </mat-list-item>
-                <mat-list-item>
-                    <mat-icon class="dashboard-icons" mat-list-icon>account_box</mat-icon>
-                    <p matLine>Teacher Id: {{teacherId}}</p>
-                </mat-list-item>
-                
-                <mat-list-item>
-                    <mat-icon class="dashboard-icons" mat-list-icon>location_on</mat-icon>
-                    <p matLine>District Id: {{districtId}}</p>
-                </mat-list-item>      
-            </mat-list>
-        </mat-card>
-    </div>
-    <div fxFlex>
-        <mat-card>
-            <mat-list>
-                <mat-list-item style="margin-bottom:20px">
-                    <mat-icon class="dashboard-icons" mat-list-icon>library_books</mat-icon>
-                    <p matLine>Curriculum Area: {{cirriculumAreaCategory}}</p>
-                </mat-list-item>
-                
-                <mat-list-item style="margin-bottom:10px">
-                    <mat-form-field appearance="outline">
-                        <mat-label>Select the category</mat-label>
-                        <mat-select [(value)]="selectedCategory" (selectionChange)="categoryChange($event)">
-                          <mat-option [value]="option.value" *ngFor="let option of categories">{{ option.viewValue }}</mat-option>
-                        </mat-select>
-                      </mat-form-field>
-                </mat-list-item>
-            </mat-list>
-            <input mat-button color="primary" style="background-color: aqua;" type="file" style="display: inline-block;" (change)="incomingfile($event)" accept=".xlsx">
-            <button mat-button style="background-color: #500000; color: white;" (click)="Upload()">Visualize</button>
-            <!-- <button mat-button style="background-color: #500000; color: white; margin-left: 10px;" (click)="Download('pop-dashboard')">Download to PDF</button> -->
-        </mat-card>
-    </div>
+<div *ngIf = "!uploaded">
+    <mat-card>
+        <mat-card-title>Welcome to POP Dashboard</mat-card-title>
+        <!-- <mat-card-subtitle>Start</mat-card-subtitle> -->
+        <mat-card-content>
+            <p>Please upload a CSV coding sheet to visualize</p>
+            <input mat-button color="primary" type="file" style="display: inline-block;" (change)="incomingfile($event)" accept=".xlsx">
+          </mat-card-content>
+      </mat-card>
 </div>
 
 
 
-<mat-grid-list cols="2" rowHeight="2:1.25" *ngIf="allCategories">
-    <mat-grid-tile> 
-        <div>
-            <p class="chartLabel">Activity Structure<p>
-            <ngx-charts-bar-vertical
-            [view]="view"
-            [scheme]="colorScheme"
-            [results]="activityStructureFinal"
-            [gradient]="gradient"
-            [xAxis]="showXAxis"
-            [yAxis]="showYAxis"
-            [legend]="showLegend"
-            [showXAxisLabel]="showXAxisLabel"
-            [showYAxisLabel]="showYAxisLabel"
-            [xAxisLabel]="xActivtiyStructure"
-            [yAxisLabel]="yAxisLabel">
-        </ngx-charts-bar-vertical> 
-        </div>     
-    </mat-grid-tile>
 
-    <mat-grid-tile>
-        <div>
-            <p class="chartLabel">Physical Group<p>
+
+<div *ngIf="uploaded">
+    <div id="pop-dashboard" class="mb-20" fxLayout="row" fxLayout.lt-md="column" fxFlex fxLayoutGap="20px" >
+        <div fxFlex>
+            <mat-card>
+                <mat-list>
+                    <mat-list-item>
+                        <mat-icon class="dashboard-icons" mat-list-icon>school</mat-icon>
+                        <p matLine>School Id: {{schoolId}}</p>
+                    </mat-list-item>
+                    <mat-list-item>
+                        <mat-icon class="dashboard-icons" mat-list-icon>account_box</mat-icon>
+                        <p matLine>Teacher Id: {{teacherId}}</p>
+                    </mat-list-item>
+                    
+                    <mat-list-item>
+                        <mat-icon class="dashboard-icons" mat-list-icon>location_on</mat-icon>
+                        <p matLine>District Id: {{districtId}}</p>
+                    </mat-list-item>      
+                </mat-list>
+            </mat-card>
+        </div>
+        <div fxFlex>
+            <mat-card>
+                <mat-list>
+                    <mat-list-item style="margin-bottom:20px">
+                        <mat-icon class="dashboard-icons" mat-list-icon>library_books</mat-icon>
+                        <p matLine>Curriculum Area: {{cirriculumAreaCategory}}</p>
+                    </mat-list-item>
+                    
+                    <mat-list-item style="margin-bottom:10px">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Select the category</mat-label>
+                            <mat-select [(value)]="selectedCategory" (selectionChange)="categoryChange($event)">
+                              <mat-option [value]="option.value" *ngFor="let option of categories">{{ option.viewValue }}</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                    </mat-list-item>
+                </mat-list>
+                <input mat-button color="primary" style="background-color: aqua;" type="file" style="display: inline-block;" (change)="incomingfile($event)" accept=".xlsx">
+                <button mat-button style="background-color: #500000; color: white;" (click)="Upload()">Visualize</button>
+                <!-- <button mat-button style="background-color: #500000; color: white; margin-left: 10px;" (click)="Download('pop-dashboard')">Download to PDF</button> -->
+            </mat-card>
+        </div>
+    </div>
+    
+    
+    
+    <mat-grid-list cols="2" rowHeight="2:1.25" *ngIf="allCategories">
+        <mat-grid-tile> 
+            <div>
+                <p class="chartLabel">Activity Structure<p>
+                <ngx-charts-bar-vertical
+                [view]="view"
+                [scheme]="colorScheme"
+                [results]="activityStructureFinal"
+                [gradient]="gradient"
+                [xAxis]="showXAxis"
+                [yAxis]="showYAxis"
+                [legend]="showLegend"
+                [showXAxisLabel]="showXAxisLabel"
+                [showYAxisLabel]="showYAxisLabel"
+                [xAxisLabel]="xActivtiyStructure"
+                [yAxisLabel]="yAxisLabel">
+            </ngx-charts-bar-vertical> 
+            </div>     
+        </mat-grid-tile>
+    
+        <mat-grid-tile>
+            <div>
+                <p class="chartLabel">Physical Group<p>
+                    <ngx-charts-pie-chart
+                        [view]="view"
+                        [scheme]="colorScheme"
+                        [results]="physicalGroupList"
+                        [gradient]="gradient"
+                        [legend]="showLegend"
+                        [legendPosition]="legendPosition"
+                        [labels]="showLabels"
+                        [doughnut]="isDoughnut"
+              >
+            </ngx-charts-pie-chart>
+            </div>
+    
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <div>
+                <p class="chartLabel">Mode Of Communication</p>
+                <ngx-charts-bar-vertical
+                [view]="view"
+                [scheme]="colorScheme"
+                [results]="modeFinal"
+                [gradient]="gradient"
+                [xAxis]="showXAxis"
+                [yAxis]="showYAxis"
+                [legend]="showLegend"
+                [showXAxisLabel]="showXAxisLabel"
+                [showYAxisLabel]="showYAxisLabel"
+                [xAxisLabel]="xModeOfCommunication"
+                [yAxisLabel]="yAxisLabel">
+            </ngx-charts-bar-vertical>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <div>
+                <p class="chartLabel">ESL Strategy</p>
+                <ngx-charts-bar-vertical
+                [view]="view"
+                [scheme]="colorScheme"
+                [results]="eslStrategyFinal"
+                [gradient]="gradient"
+                [xAxis]="showXAxis"
+                [yAxis]="showYAxis"
+                [legend]="showLegend"
+                [showXAxisLabel]="showXAxisLabel"
+                [showYAxisLabel]="showYAxisLabel"
+                [xAxisLabel]="xESLStrategy"
+                [yAxisLabel]="yAxisLabel">
+            </ngx-charts-bar-vertical>
+            </div>
+           
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <div>
+                <p class="chartLabel">Language Content</p>
+                <ngx-charts-bar-vertical
+                [view]="view"
+                [scheme]="colorScheme"
+                [results]="languageContentFinal"
+                [gradient]="gradient"
+                [xAxis]="showXAxis"
+                [yAxis]="showYAxis"
+                [legend]="showLegend"
+                [showXAxisLabel]="showXAxisLabel"
+                [showYAxisLabel]="showYAxisLabel"
+                [xAxisLabel]="xLanguageContent"
+                [yAxisLabel]="yAxisLabel">
+            </ngx-charts-bar-vertical>
+            </div>
+           
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <div>
+                <p class="chartLabel">Language Content(Combined)</p>
+                
                 <ngx-charts-pie-chart
                     [view]="view"
                     [scheme]="colorScheme"
-                    [results]="physicalGroupList"
+                    [results]="languageContentCombined"
                     [gradient]="gradient"
                     [legend]="showLegend"
                     [legendPosition]="legendPosition"
@@ -78,160 +168,90 @@
                     [doughnut]="isDoughnut"
           >
         </ngx-charts-pie-chart>
-        </div>
-
-    </mat-grid-tile>
-    <mat-grid-tile>
-        <div>
-            <p class="chartLabel">Mode Of Communication</p>
-            <ngx-charts-bar-vertical
-            [view]="view"
-            [scheme]="colorScheme"
-            [results]="modeFinal"
-            [gradient]="gradient"
-            [xAxis]="showXAxis"
-            [yAxis]="showYAxis"
-            [legend]="showLegend"
-            [showXAxisLabel]="showXAxisLabel"
-            [showYAxisLabel]="showYAxisLabel"
-            [xAxisLabel]="xModeOfCommunication"
-            [yAxisLabel]="yAxisLabel">
-        </ngx-charts-bar-vertical>
-        </div>
-    </mat-grid-tile>
-    <mat-grid-tile>
-        <div>
-            <p class="chartLabel">ESL Strategy</p>
-            <ngx-charts-bar-vertical
-            [view]="view"
-            [scheme]="colorScheme"
-            [results]="eslStrategyFinal"
-            [gradient]="gradient"
-            [xAxis]="showXAxis"
-            [yAxis]="showYAxis"
-            [legend]="showLegend"
-            [showXAxisLabel]="showXAxisLabel"
-            [showYAxisLabel]="showYAxisLabel"
-            [xAxisLabel]="xESLStrategy"
-            [yAxisLabel]="yAxisLabel">
-        </ngx-charts-bar-vertical>
-        </div>
-       
-    </mat-grid-tile>
-    <mat-grid-tile>
-        <div>
-            <p class="chartLabel">Language Content</p>
-            <ngx-charts-bar-vertical
-            [view]="view"
-            [scheme]="colorScheme"
-            [results]="languageContentFinal"
-            [gradient]="gradient"
-            [xAxis]="showXAxis"
-            [yAxis]="showYAxis"
-            [legend]="showLegend"
-            [showXAxisLabel]="showXAxisLabel"
-            [showYAxisLabel]="showYAxisLabel"
-            [xAxisLabel]="xLanguageContent"
-            [yAxisLabel]="yAxisLabel">
-        </ngx-charts-bar-vertical>
-        </div>
-       
-    </mat-grid-tile>
-    <mat-grid-tile>
-        <div>
-            <p class="chartLabel">Language Content(Combined)</p>
-            
-            <ngx-charts-pie-chart
+            </div>
+           
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <div>
+                <p class="chartLabel">Language of Instruction(Student)</p>
+                <ngx-charts-pie-chart
+                    [view]="view"
+                    [scheme]="colorScheme"
+                    [results]="SLofIFinal"
+                    [gradient]="gradient"
+                    [legend]="showLegend"
+                    [legendPosition]="legendPosition"
+                    [labels]="showLabels"
+                    [doughnut]="isDoughnut"
+          >
+            </ngx-charts-pie-chart>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <div>
+                <p class="chartLabel">Language of Instruction(Teacher)</p>
+                <ngx-charts-pie-chart
                 [view]="view"
                 [scheme]="colorScheme"
-                [results]="languageContentCombined"
+                [results]="TLofIFinal"
                 [gradient]="gradient"
                 [legend]="showLegend"
                 [legendPosition]="legendPosition"
                 [labels]="showLabels"
                 [doughnut]="isDoughnut"
-      >
-    </ngx-charts-pie-chart>
-        </div>
-       
-    </mat-grid-tile>
-    <mat-grid-tile>
-        <div>
-            <p class="chartLabel">Language of Instruction(Student)</p>
-            <ngx-charts-pie-chart
+        >
+        </ngx-charts-pie-chart>  
+            </div>   
+        </mat-grid-tile>
+      </mat-grid-list>
+    
+    
+    <mat-grid-list cols="1" *ngIf="!allCategories && selectedCategory=='activityStructure'">
+        <mat-grid-tile> 
+            <div>
+                <p class="chartLabel">Activity Structure<p>
+                <ngx-charts-bar-vertical
                 [view]="view"
                 [scheme]="colorScheme"
-                [results]="SLofIFinal"
+                [results]="activityStructureFinal"
                 [gradient]="gradient"
+                [xAxis]="showXAxis"
+                [yAxis]="showYAxis"
                 [legend]="showLegend"
-                [legendPosition]="legendPosition"
-                [labels]="showLabels"
-                [doughnut]="isDoughnut"
-      >
-        </ngx-charts-pie-chart>
-        </div>
-    </mat-grid-tile>
-    <mat-grid-tile>
-        <div>
-            <p class="chartLabel">Language of Instruction(Teacher)</p>
-            <ngx-charts-pie-chart
-            [view]="view"
-            [scheme]="colorScheme"
-            [results]="TLofIFinal"
-            [gradient]="gradient"
-            [legend]="showLegend"
-            [legendPosition]="legendPosition"
-            [labels]="showLabels"
-            [doughnut]="isDoughnut"
-    >
-    </ngx-charts-pie-chart>  
-        </div>   
-    </mat-grid-tile>
-  </mat-grid-list>
+                [showXAxisLabel]="showXAxisLabel"
+                [showYAxisLabel]="showYAxisLabel"
+                [xAxisLabel]="xActivtiyStructure"
+                [yAxisLabel]="yAxisLabel">
+            </ngx-charts-bar-vertical> 
+            </div>     
+        </mat-grid-tile>
+        <mat-grid-tile> 
+            <div>
+                <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    
+                    <!--- Note that these columns can be defined in any order.
+                          The actual rendered columns are set as a property on the row definition" -->
+                  
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="position">
+                      <th mat-header-cell *matHeaderCellDef> No. </th>
+                      <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+                    </ng-container>
+                  
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="name">
+                      <th mat-header-cell *matHeaderCellDef> Name </th>
+                      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                    </ng-container>
+                  
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>      
+            </div>     
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>
 
 
-<mat-grid-list cols="1" *ngIf="!allCategories && selectedCategory=='activityStructure'">
-    <mat-grid-tile> 
-        <div>
-            <p class="chartLabel">Activity Structure<p>
-            <ngx-charts-bar-vertical
-            [view]="view"
-            [scheme]="colorScheme"
-            [results]="activityStructureFinal"
-            [gradient]="gradient"
-            [xAxis]="showXAxis"
-            [yAxis]="showYAxis"
-            [legend]="showLegend"
-            [showXAxisLabel]="showXAxisLabel"
-            [showYAxisLabel]="showYAxisLabel"
-            [xAxisLabel]="xActivtiyStructure"
-            [yAxisLabel]="yAxisLabel">
-        </ngx-charts-bar-vertical> 
-        </div>     
-    </mat-grid-tile>
-    <mat-grid-tile> 
-        <div>
-            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-                <!--- Note that these columns can be defined in any order.
-                      The actual rendered columns are set as a property on the row definition" -->
-              
-                <!-- Position Column -->
-                <ng-container matColumnDef="position">
-                  <th mat-header-cell *matHeaderCellDef> No. </th>
-                  <td mat-cell *matCellDef="let element"> {{element.position}} </td>
-                </ng-container>
-              
-                <!-- Name Column -->
-                <ng-container matColumnDef="name">
-                  <th mat-header-cell *matHeaderCellDef> Name </th>
-                  <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-                </ng-container>
-              
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-          </table>      
-        </div>     
-    </mat-grid-tile>
-</mat-grid-list>
 
