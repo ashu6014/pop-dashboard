@@ -2,8 +2,6 @@ import { Component, ComponentFactoryResolver, OnInit, ElementRef,  ViewChild} fr
 import { single } from './data';
 import * as XLSX from 'xlsx';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import jspdf from 'jspdf';
-import html2canvas from 'html2canvas';
 
 @Component({
     selector: 'app-dashboard',
@@ -11,6 +9,10 @@ import html2canvas from 'html2canvas';
     styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+
+    ngOnInit() {
+        this.getCsvData();
+    }
 
     @ViewChild('pdfTable', {static: false}) pdfTable: ElementRef;
 
@@ -29,6 +31,8 @@ export class DashboardComponent implements OnInit {
     districtId : any;
     schoolId : any;
     teacherId: any;
+    allCategories: boolean = true;
+   
 
     //adding here
     arrayBuffer:any;
@@ -48,7 +52,6 @@ export class DashboardComponent implements OnInit {
                 var workbook = XLSX.read(bstr, {type:"binary"});
                 var first_sheet_name = workbook.SheetNames[0];
                 var worksheet = workbook.Sheets[first_sheet_name];
-                console.log(XLSX.utils.sheet_to_json(worksheet,{raw:true}));
                 //adding here
                 this.sheetDataJson = XLSX.utils.sheet_to_json(worksheet,{raw:true})
                 this.districtId = this.sheetDataJson[0]['District ID']
@@ -66,19 +69,14 @@ export class DashboardComponent implements OnInit {
             fileReader.readAsArrayBuffer(this.file);
     }
 
-    Download(divId)
-    {
-        let data = document.getElementById('divId');  
-        html2canvas(data).then(canvas => {
-        const contentDataURL = canvas.toDataURL('image/png')  
-        let pdf = new jspdf('p', 'cm', 'a4');
-        pdf.addImage(contentDataURL, 'PNG', 0, 0, 29.7, 21.0);  
-        pdf.save('Filename.pdf');   
-      }); 
-    }
+    categoryChange(event){
+     
+        this.allCategories = false;
+        this.selectedCategory = event.value;
+        if(this.selectedCategory == 'all'){
+            this.allCategories = true;
+        }
 
-    ngOnInit() {
-        this.getCsvData();
     }
 
     getCsvData(){
@@ -102,6 +100,8 @@ export class DashboardComponent implements OnInit {
             this.languageContent();
             this.studentLanguageOfInstruction();
             this.teacherLanguageOfInstruction();
+
+            
           })
     }
 
@@ -126,7 +126,6 @@ export class DashboardComponent implements OnInit {
     xModeOfCommunication = 'Mode of Communication';
     xESLStrategy = 'ESL Strategy'
     xLanguageContent = 'Language Content'
-    
 
     colorScheme = {
          domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
@@ -175,8 +174,10 @@ export class DashboardComponent implements OnInit {
         });
         this.activityStructureFinal = testList
         Object.assign(this, { testList })
-
+       
       }
+
+      
 
 
       physicalGroup(){
@@ -209,7 +210,6 @@ export class DashboardComponent implements OnInit {
      
         Object.assign(this, { testList })
         this.physicalGroupList = testList;
-        console.log("phy", testList)
       }
 
     mode(){
@@ -223,7 +223,6 @@ export class DashboardComponent implements OnInit {
                 mMap.set(element["Mode"], cnt);
             }
         });
-        console.log(this.sheetDataJson)
         let modeMap = new Map([
             [1 , "writing"], [2, "reading"], [3, "aural"], [4, "verbal"],
             [5 , "wr-re"], [6, "wr-au"], [7, "wr-ver"], [8, "re-wr"],
@@ -234,7 +233,6 @@ export class DashboardComponent implements OnInit {
         let testList = [];
         mMap.forEach((value:number, key:number)=> {
             if(value>0){
-                console.log(key);
                 let item = {
                     
                     name: modeMap.get(key),
@@ -244,7 +242,6 @@ export class DashboardComponent implements OnInit {
             }   
         });
         this.modeFinal = testList
-        console.log(this.modeFinal);
         Object.assign(this, { testList })
       
     }
@@ -268,7 +265,6 @@ export class DashboardComponent implements OnInit {
             let testList = [];
             eslMap.forEach((value:number, key:number)=> {
                 if(value>0){
-                    console.log(key);
                     let item = {
                         
                         name: eslStrategyMap.get(key),
@@ -278,7 +274,6 @@ export class DashboardComponent implements OnInit {
                 }   
             });
             this.eslStrategyFinal = testList
-            console.log(this.eslStrategyFinal);
             Object.assign(this, { testList })
     }
 
@@ -292,8 +287,6 @@ export class DashboardComponent implements OnInit {
 
         let caMap = new Map();
         this.cirriculumAreaCategory = cirriculumAreaMap.get(this.sheetDataJson[0]['Curriculum'])
-        console.log(this.sheetDataJson)
-        console.log("cirriculumAreaCategory", this.cirriculumAreaCategory)
     }
 
     languageContent(){
@@ -368,7 +361,6 @@ export class DashboardComponent implements OnInit {
         
         SlofIMap.forEach((value:number, key:number)=> {
                 if(value>0){
-                    console.log(key);
                     let item = {
                         name: langOfInsMap.get(key),
                         value: Math.round(SlofIMap.get(key)*100/60)
@@ -384,7 +376,6 @@ export class DashboardComponent implements OnInit {
     }
 
     teacherLanguageOfInstruction(){
-        console.log("here")
         let langOfInsMap = new Map([
             [1 , "L1"], [2, "L2"], [3, "L1-2"], [4, "L2-1"], [5 , "NA"]
         ]);
@@ -401,7 +392,7 @@ export class DashboardComponent implements OnInit {
         let testList2 = [];
         TlofIMap.forEach((value:number, key:number)=> {
             if(value>0){
-                console.log(key);
+              
                 let item = {
                     name: langOfInsMap.get(key),
                     value: Math.round(TlofIMap.get(key)*100/60)
@@ -410,9 +401,10 @@ export class DashboardComponent implements OnInit {
             }   
         });
         this.TLofIFinal = testList2;
-        console.log("testlist2", testList2)
         Object.assign(this, { testList2 })
     }
+
+    
 
   }
 

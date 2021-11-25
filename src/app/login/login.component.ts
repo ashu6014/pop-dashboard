@@ -77,19 +77,6 @@ export class LoginComponent implements OnInit {
         })
         
       }
-
-
-
-
-
-
-
-
-
-
-
-    
-
       onLogin() {
         if(this.formGroup.get('email').status == 'VALID'){
           localStorage.setItem('isLoggedin', 'true');
