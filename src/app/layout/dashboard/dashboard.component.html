@@ -1,17 +1,18 @@
-<div *ngIf = "!uploaded">
+<div *ngIf="!uploaded">
     <mat-card>
         <mat-card-title class="dashboard-title">Welcome to POP Dashboard</mat-card-title>
         <!-- <mat-card-subtitle>Start</mat-card-subtitle> -->
         <mat-card-content>
             <p>Please upload a CSV coding sheet to visualize</p>
-            <input mat-button color="primary" type="file" style="display: inline-block;" (change)="incomingfile($event)" accept=".xlsx">
-          </mat-card-content>
-      </mat-card>
+            <input mat-button color="primary" type="file" style="display: inline-block;" (change)="incomingfile($event)"
+                accept=".xlsx">
+        </mat-card-content>
+    </mat-card>
 </div>
 
 
 <div *ngIf="uploaded">
-    <div id="pop-dashboard" class="mb-20" fxLayout="row" fxLayout.lt-md="column" fxFlex fxLayoutGap="20px" >
+    <div id="pop-dashboard" class="mb-20" fxLayout="row" fxLayout.lt-md="column" fxFlex fxLayoutGap="20px">
         <div fxFlex>
             <mat-card>
                 <mat-list>
@@ -23,11 +24,11 @@
                         <mat-icon class="dashboard-icons" mat-list-icon>account_box</mat-icon>
                         <p matLine>Teacher Id: {{teacherId}}</p>
                     </mat-list-item>
-                    
+
                     <mat-list-item>
                         <mat-icon class="dashboard-icons" mat-list-icon>location_on</mat-icon>
                         <p matLine>District Id: {{districtId}}</p>
-                    </mat-list-item>      
+                    </mat-list-item>
                 </mat-list>
             </mat-card>
         </div>
@@ -38,320 +39,177 @@
                         <mat-icon class="dashboard-icons" mat-list-icon>library_books</mat-icon>
                         <p matLine>Curriculum Area: {{cirriculumAreaCategory}}</p>
                     </mat-list-item>
-                    
+
                     <mat-list-item style="margin-bottom:10px">
                         <mat-form-field appearance="outline">
                             <mat-label>Select the category</mat-label>
                             <mat-select [(value)]="selectedCategory" (selectionChange)="categoryChange($event)">
-                              <mat-option [value]="option.value" *ngFor="let option of categories">{{ option.viewValue }}</mat-option>
+                                <mat-option [value]="option.value" *ngFor="let option of categories">{{ option.viewValue
+                                    }}</mat-option>
                             </mat-select>
-                          </mat-form-field>
+                        </mat-form-field>
                     </mat-list-item>
                 </mat-list>
-                <input mat-button color="primary" style="background-color: aqua;" type="file" style="display: inline-block;" (change)="incomingfile($event)" accept=".xlsx">
-                <button mat-button style="background-color: #500000; color: white;" (click)="Upload()">Visualize</button>
+                <input mat-button color="primary" style="background-color: aqua;" type="file"
+                    style="display: inline-block;" (change)="incomingfile($event)" accept=".xlsx">
+                <button mat-button style="background-color: #500000; color: white;"
+                    (click)="Upload()">Visualize</button>
                 <!-- <button mat-button style="background-color: #500000; color: white; margin-left: 10px;" (click)="Download('pop-dashboard')">Download to PDF</button> -->
             </mat-card>
         </div>
     </div>
-    
-    
-    
+
+
+
     <mat-grid-list cols="2" rowHeight="2:1.25" *ngIf="allCategories">
-        <mat-grid-tile> 
-            <div>
-                <p class="chartLabel">Activity Structure<p>
-                <ngx-charts-bar-vertical
-                [view]="view"
-                [scheme]="colorScheme"
-                [results]="activityStructureFinal"
-                [gradient]="gradient"
-                [xAxis]="showXAxis"
-                [yAxis]="showYAxis"
-                [legend]="showLegend"
-                [showXAxisLabel]="showXAxisLabel"
-                [showYAxisLabel]="showYAxisLabel"
-                [xAxisLabel]="xActivtiyStructure"
-                [yAxisLabel]="yAxisLabel">
-            </ngx-charts-bar-vertical> 
-            </div>     
-        </mat-grid-tile>
-    
         <mat-grid-tile>
             <div>
-                <p class="chartLabel">Physical Group<p>
-                    <ngx-charts-pie-chart
-                        [view]="view"
-                        [scheme]="colorScheme"
-                        [results]="physicalGroupList"
-                        [gradient]="gradient"
-                        [legend]="showLegend"
-                        [legendPosition]="legendPosition"
-                        [labels]="showLabels"
-                        [doughnut]="isDoughnut"
-              >
-            </ngx-charts-pie-chart>
+                <p class="chartLabel">Activity Structure
+                <p>
+                    <ngx-charts-bar-vertical [view]="view" [scheme]="colorScheme" [results]="activityStructureFinal"
+                        [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
+                        [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+                        [xAxisLabel]="xActivtiyStructure" [yAxisLabel]="yAxisLabel">
+                    </ngx-charts-bar-vertical>
             </div>
-    
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+            <div>
+                <p class="chartLabel">Physical Group
+                <p>
+                    <ngx-charts-pie-chart [view]="view" [scheme]="colorScheme" [results]="physicalGroupList"
+                        [gradient]="gradient" [legend]="showLegend" [legendPosition]="legendPosition"
+                        [labels]="showLabels" [doughnut]="isDoughnut">
+                    </ngx-charts-pie-chart>
+            </div>
+
         </mat-grid-tile>
         <mat-grid-tile>
             <div>
                 <p class="chartLabel">Mode Of Communication</p>
-                <ngx-charts-bar-vertical
-                [view]="view"
-                [scheme]="colorScheme"
-                [results]="modeFinal"
-                [gradient]="gradient"
-                [xAxis]="showXAxis"
-                [yAxis]="showYAxis"
-                [legend]="showLegend"
-                [showXAxisLabel]="showXAxisLabel"
-                [showYAxisLabel]="showYAxisLabel"
-                [xAxisLabel]="xModeOfCommunication"
-                [yAxisLabel]="yAxisLabel">
-            </ngx-charts-bar-vertical>
+                <ngx-charts-bar-vertical [view]="view" [scheme]="colorScheme" [results]="modeFinal"
+                    [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
+                    [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+                    [xAxisLabel]="xModeOfCommunication" [yAxisLabel]="yAxisLabel">
+                </ngx-charts-bar-vertical>
             </div>
         </mat-grid-tile>
         <mat-grid-tile>
             <div>
                 <p class="chartLabel">ESL Strategy</p>
-                <ngx-charts-bar-vertical
-                [view]="view"
-                [scheme]="colorScheme"
-                [results]="eslStrategyFinal"
-                [gradient]="gradient"
-                [xAxis]="showXAxis"
-                [yAxis]="showYAxis"
-                [legend]="showLegend"
-                [showXAxisLabel]="showXAxisLabel"
-                [showYAxisLabel]="showYAxisLabel"
-                [xAxisLabel]="xESLStrategy"
-                [yAxisLabel]="yAxisLabel">
-            </ngx-charts-bar-vertical>
+                <ngx-charts-bar-vertical [view]="view" [scheme]="colorScheme" [results]="eslStrategyFinal"
+                    [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
+                    [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xESLStrategy"
+                    [yAxisLabel]="yAxisLabel">
+                </ngx-charts-bar-vertical>
             </div>
-           
+
         </mat-grid-tile>
         <mat-grid-tile>
             <div>
                 <p class="chartLabel">Language Content</p>
-                <ngx-charts-bar-vertical
-                [view]="view"
-                [scheme]="colorScheme"
-                [results]="languageContentFinal"
-                [gradient]="gradient"
-                [xAxis]="showXAxis"
-                [yAxis]="showYAxis"
-                [legend]="showLegend"
-                [showXAxisLabel]="showXAxisLabel"
-                [showYAxisLabel]="showYAxisLabel"
-                [xAxisLabel]="xLanguageContent"
-                [yAxisLabel]="yAxisLabel">
-            </ngx-charts-bar-vertical>
+                <ngx-charts-bar-vertical [view]="view" [scheme]="colorScheme" [results]="languageContentFinal"
+                    [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
+                    [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xLanguageContent"
+                    [yAxisLabel]="yAxisLabel">
+                </ngx-charts-bar-vertical>
             </div>
-           
+
         </mat-grid-tile>
         <mat-grid-tile>
             <div>
                 <p class="chartLabel">Language Content(Combined)</p>
-                
-                <ngx-charts-pie-chart
-                    [view]="view"
-                    [scheme]="colorScheme"
-                    [results]="languageContentCombined"
-                    [gradient]="gradient"
-                    [legend]="showLegend"
-                    [legendPosition]="legendPosition"
-                    [labels]="showLabels"
-                    [doughnut]="isDoughnut"
-          >
-        </ngx-charts-pie-chart>
+
+                <ngx-charts-pie-chart [view]="view" [scheme]="colorScheme" [results]="languageContentCombined"
+                    [gradient]="gradient" [legend]="showLegend" [legendPosition]="legendPosition" [labels]="showLabels"
+                    [doughnut]="isDoughnut">
+                </ngx-charts-pie-chart>
             </div>
-           
+
         </mat-grid-tile>
         <mat-grid-tile>
             <div>
                 <p class="chartLabel">Language of Instruction(Student)</p>
-                <ngx-charts-pie-chart
-                    [view]="view"
-                    [scheme]="colorScheme"
-                    [results]="SLofIFinal"
-                    [gradient]="gradient"
-                    [legend]="showLegend"
-                    [legendPosition]="legendPosition"
-                    [labels]="showLabels"
-                    [doughnut]="isDoughnut"
-          >
-            </ngx-charts-pie-chart>
+                <ngx-charts-pie-chart [view]="view" [scheme]="colorScheme" [results]="SLofIFinal" [gradient]="gradient"
+                    [legend]="showLegend" [legendPosition]="legendPosition" [labels]="showLabels"
+                    [doughnut]="isDoughnut">
+                </ngx-charts-pie-chart>
             </div>
         </mat-grid-tile>
         <mat-grid-tile>
             <div>
                 <p class="chartLabel">Language of Instruction(Teacher)</p>
-                <ngx-charts-pie-chart
-                [view]="view"
-                [scheme]="colorScheme"
-                [results]="TLofIFinal"
-                [gradient]="gradient"
-                [legend]="showLegend"
-                [legendPosition]="legendPosition"
-                [labels]="showLabels"
-                [doughnut]="isDoughnut"
-        >
-        </ngx-charts-pie-chart>  
-            </div>   
-        </mat-grid-tile>
-      </mat-grid-list>
-    
-    
-    <mat-grid-list cols="1" *ngIf="!allCategories && selectedCategory=='activityStructure'">
-        <mat-grid-tile> 
-            <div>
-                <p class="chartLabel">Activity Structure<p>
-                <ngx-charts-bar-vertical
-                [view]="view"
-                [scheme]="colorScheme"
-                [results]="activityStructureFinal"
-                [gradient]="gradient"
-                [xAxis]="showXAxis"
-                [yAxis]="showYAxis"
-                [legend]="showLegend"
-                [showXAxisLabel]="showXAxisLabel"
-                [showYAxisLabel]="showYAxisLabel"
-                [xAxisLabel]="xActivtiyStructure"
-                [yAxisLabel]="yAxisLabel">
-            </ngx-charts-bar-vertical> 
-            </div>     
-        </mat-grid-tile>
-    </mat-grid-list>
-
-    <mat-grid-list cols="1" *ngIf="!allCategories && selectedCategory=='communicationMode'">
-        <mat-grid-tile>
-            <div>
-                <p class="chartLabel">Mode Of Communication</p>
-                <ngx-charts-bar-vertical
-                [view]="view"
-                [scheme]="colorScheme"
-                [results]="modeFinal"
-                [gradient]="gradient"
-                [xAxis]="showXAxis"
-                [yAxis]="showYAxis"
-                [legend]="showLegend"
-                [showXAxisLabel]="showXAxisLabel"
-                [showYAxisLabel]="showYAxisLabel"
-                [xAxisLabel]="xModeOfCommunication"
-                [yAxisLabel]="yAxisLabel">
-            </ngx-charts-bar-vertical>
+                <ngx-charts-pie-chart [view]="view" [scheme]="colorScheme" [results]="TLofIFinal" [gradient]="gradient"
+                    [legend]="showLegend" [legendPosition]="legendPosition" [labels]="showLabels"
+                    [doughnut]="isDoughnut">
+                </ngx-charts-pie-chart>
             </div>
         </mat-grid-tile>
     </mat-grid-list>
 
-    <mat-grid-list cols="1" *ngIf="!allCategories && selectedCategory=='eslStrategy'">
-        <mat-grid-tile>
-            <div>
-                <p class="chartLabel">ESL Strategy</p>
-                <ngx-charts-bar-vertical
-                [view]="view"
-                [scheme]="colorScheme"
-                [results]="eslStrategyFinal"
-                [gradient]="gradient"
-                [xAxis]="showXAxis"
-                [yAxis]="showYAxis"
-                [legend]="showLegend"
-                [showXAxisLabel]="showXAxisLabel"
-                [showYAxisLabel]="showYAxisLabel"
-                [xAxisLabel]="xESLStrategy"
+
+    <div *ngIf="!allCategories && selectedCategory=='activityStructure'">
+        <p class="chartLabel">Activity Structure
+        <p>
+            <ngx-charts-bar-vertical [view]="view" [scheme]="colorScheme" [results]="activityStructureFinal"
+                [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
+                [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xActivtiyStructure"
                 [yAxisLabel]="yAxisLabel">
             </ngx-charts-bar-vertical>
-            </div>
-           
-        </mat-grid-tile>
-    </mat-grid-list>
+    </div>
 
-    <mat-grid-list cols="1" *ngIf="!allCategories && selectedCategory=='physicalGroup'">
-        <mat-grid-tile>
-            <div>
-                <p class="chartLabel">Physical Group<p>
-                    <ngx-charts-pie-chart
-                        [view]="view"
-                        [scheme]="colorScheme"
-                        [results]="physicalGroupList"
-                        [gradient]="gradient"
-                        [legend]="showLegend"
-                        [legendPosition]="legendPosition"
-                        [labels]="showLabels"
-                        [doughnut]="isDoughnut"
-              >
+    <div *ngIf="!allCategories && selectedCategory=='communicationMode'">
+        <p class="chartLabel">Mode Of Communication</p>
+        <ngx-charts-bar-vertical [view]="view" [scheme]="colorScheme" [results]="modeFinal" [gradient]="gradient"
+            [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel"
+            [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xModeOfCommunication" [yAxisLabel]="yAxisLabel">
+        </ngx-charts-bar-vertical>
+    </div>
+
+    <div *ngIf="!allCategories && selectedCategory=='eslStrategy'">
+        <p class="chartLabel">ESL Strategy</p>
+        <ngx-charts-bar-vertical [view]="view" [scheme]="colorScheme" [results]="eslStrategyFinal" [gradient]="gradient"
+            [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel"
+            [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xESLStrategy" [yAxisLabel]="yAxisLabel">
+        </ngx-charts-bar-vertical>
+    </div>
+
+
+
+    <div *ngIf="!allCategories && selectedCategory=='physicalGroup'">
+        <p class="chartLabel">Physical Group
+        <p>
+            <ngx-charts-pie-chart [view]="view" [scheme]="colorScheme" [results]="physicalGroupList"
+                [gradient]="gradient" [legend]="showLegend" [legendPosition]="legendPosition" [labels]="showLabels"
+                [doughnut]="isDoughnut">
             </ngx-charts-pie-chart>
-            </div>
-    
-        </mat-grid-tile>
-    </mat-grid-list>
+    </div>
 
+    <div *ngIf="!allCategories && selectedCategory=='languageContent'">
+        <p class="chartLabel">Language Content(Combined)</p>
 
-    <mat-grid-list cols="1" *ngIf="!allCategories && selectedCategory=='languageContent'">
-        <mat-grid-tile>
-            <div>
-                <p class="chartLabel">Language Content(Combined)</p>
-                
-                <ngx-charts-pie-chart
-                    [view]="view"
-                    [scheme]="colorScheme"
-                    [results]="languageContentCombined"
-                    [gradient]="gradient"
-                    [legend]="showLegend"
-                    [legendPosition]="legendPosition"
-                    [labels]="showLabels"
-                    [doughnut]="isDoughnut"
-          >
+        <ngx-charts-pie-chart [view]="view" [scheme]="colorScheme" [results]="languageContentCombined"
+            [gradient]="gradient" [legend]="showLegend" [legendPosition]="legendPosition" [labels]="showLabels"
+            [doughnut]="isDoughnut">
         </ngx-charts-pie-chart>
-            </div>
-           
-        </mat-grid-tile>
-    </mat-grid-list>
+    </div>
 
-    <mat-grid-list cols="2" *ngIf="!allCategories && selectedCategory=='languageOfInstruction'">
-        <mat-grid-tile>
-            <div>
-                <p class="chartLabel">Language of Instruction(Student)</p>
-                <ngx-charts-pie-chart
-                    [view]="view"
-                    [scheme]="colorScheme"
-                    [results]="SLofIFinal"
-                    [gradient]="gradient"
-                    [legend]="showLegend"
-                    [legendPosition]="legendPosition"
-                    [labels]="showLabels"
-                    [doughnut]="isDoughnut"
-          >
+    <div *ngIf="!allCategories && selectedCategory=='languageOfInstruction'">
+        <div>
+            <p class="chartLabel">Language of Instruction(Student)</p>
+            <ngx-charts-pie-chart [view]="view" [scheme]="colorScheme" [results]="SLofIFinal" [gradient]="gradient"
+                [legend]="showLegend" [legendPosition]="legendPosition" [labels]="showLabels" [doughnut]="isDoughnut">
             </ngx-charts-pie-chart>
-            </div>
-        </mat-grid-tile>
-        <mat-grid-tile>
-            <div>
-                <p class="chartLabel">Language of Instruction(Teacher)</p>
-                <ngx-charts-pie-chart
-                [view]="view"
-                [scheme]="colorScheme"
-                [results]="TLofIFinal"
-                [gradient]="gradient"
-                [legend]="showLegend"
-                [legendPosition]="legendPosition"
-                [labels]="showLabels"
-                [doughnut]="isDoughnut"
-        >
-        </ngx-charts-pie-chart>  
-            </div>   
-        </mat-grid-tile>
-    </mat-grid-list>
+        </div>
 
-
-
+        <div>
+            <p class="chartLabel">Language of Instruction(Teacher)</p>
+            <ngx-charts-pie-chart [view]="view" [scheme]="colorScheme" [results]="TLofIFinal" [gradient]="gradient"
+                [legend]="showLegend" [legendPosition]="legendPosition" [labels]="showLabels" [doughnut]="isDoughnut">
+            </ngx-charts-pie-chart>
+        </div>
+    </div>
 
 
 </div>
-
-
-
-
-
-
