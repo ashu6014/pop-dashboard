@@ -11,7 +11,7 @@
 </div>
 
 
-<div *ngIf="uploaded">
+<div *ngIf="uploaded" id="dashboard">
     <div id="pop-dashboard" class="mb-20" fxLayout="row" fxLayout.lt-md="column" fxFlex fxLayoutGap="20px">
         <div fxFlex>
             <mat-card>
@@ -212,4 +212,7 @@
     </div>
 
 
+
+        <button (click)="download()">click me</button>
+    
 </div>

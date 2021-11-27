@@ -2,6 +2,8 @@ import { Component, ComponentFactoryResolver, OnInit, ElementRef,  ViewChild} fr
 import { single } from './data';
 import * as XLSX from 'xlsx';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import jspdf from 'jspdf';
+import html2canvas from 'html2canvas'
 
 @Component({
     selector: 'app-dashboard',
@@ -12,6 +14,19 @@ export class DashboardComponent implements OnInit {
 
     ngOnInit() {
         this.getCsvData();
+    }
+
+    download(){
+        var element = document.getElementById('dashboard');
+        html2canvas(element).then((canvas)=> {
+            var imgData = canvas.toDataURL('image/png');
+
+            var doc = new jspdf();
+            var imgHeight = canvas.height * 208 / canvas.width;
+            doc.addImage(imgData, 0, 0 , 208, imgHeight)
+
+            doc.save('image.pdf');
+        })
     }
 
     @ViewChild('pdfTable', {static: false}) pdfTable: ElementRef;
