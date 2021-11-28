@@ -54,7 +54,8 @@
                     style="display: inline-block;" (change)="incomingfile($event)" accept=".xlsx">
                 <button mat-button style="background-color: #500000; color: white;"
                     (click)="Upload()">Visualize</button>
-                <!-- <button mat-button style="background-color: #500000; color: white; margin-left: 10px;" (click)="Download('pop-dashboard')">Download to PDF</button> -->
+                  
+                <button mat-button style="background-color: #500000; color: white; margin-left: 10px;" (click)="download()">Download to PDF</button>
             </mat-card>
         </div>
     </div>
@@ -210,9 +211,4 @@
             </ngx-charts-pie-chart>
         </div>
     </div>
-
-
-
-        <button (click)="download()">click me</button>
-    
 </div>
