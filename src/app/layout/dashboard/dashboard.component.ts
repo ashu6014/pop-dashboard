@@ -13,7 +13,6 @@ import html2canvas from 'html2canvas'
 export class DashboardComponent implements OnInit {
 
     ngOnInit() {
-        this.getCsvData();
     }
 
     download(){
@@ -71,6 +70,9 @@ export class DashboardComponent implements OnInit {
                 var worksheet = workbook.Sheets[first_sheet_name];
                 //adding here
                 this.sheetDataJson = XLSX.utils.sheet_to_json(worksheet,{raw:true})
+                if(this.sheetDataJson.length()!=60){
+                    
+                }
                 console.log("this.sheetDataJson", this.sheetDataJson)
                 this.districtId = this.sheetDataJson[0]['District ID']
                 this.schoolId = this.sheetDataJson[0]['School ID'];
@@ -95,32 +97,6 @@ export class DashboardComponent implements OnInit {
             this.allCategories = true;
         }
 
-    }
-
-    getCsvData(){
-        this.http.get('./assets/sample.xlsx', { responseType: 'arraybuffer' }).subscribe((file:ArrayBuffer)  => { 
-            let data = new Uint8Array(file);
-            var arr = new Array();    
-            for(var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);    
-            let bstr = arr.join("");
-            let workbook = XLSX.read(bstr, {type:"binary"});
-            let first_sheet_name = workbook.SheetNames[0];    
-            let worksheet = workbook.Sheets[first_sheet_name];    
-            this.sheetDataJson = XLSX.utils.sheet_to_json(worksheet,{raw:true})
-            this.districtId = this.sheetDataJson[0]['District ID']
-            this.schoolId = this.sheetDataJson[0]['School ID'];
-            this.teacherId = this.sheetDataJson[0]['Teacher ID']
-            this.activityStructure();
-            this.physicalGroup();
-            this.mode();
-            this.eslStrategy();
-            this.cirriculumArea();
-            this.languageContent();
-            this.studentLanguageOfInstruction();
-            this.teacherLanguageOfInstruction();
-
-            
-          })
     }
 
     // options
