@@ -52,13 +52,19 @@ export class DashboardComponent implements OnInit {
     //adding here
     arrayBuffer:any;
     file:File;
+    fileName:any;
+    // fileAttached: boolean = false;
     incomingfile(event) {
+    //   this.fileAttached = true;
       this.file= event.target.files[0]; 
+      this.fileName = this.file.name
       this.uploaded = true;
+      this.Upload();
     }
     
      Upload() {
           let fileReader = new FileReader();
+          fileReader.readAsArrayBuffer(this.file);
             fileReader.onload = (e) => {
                 this.arrayBuffer = fileReader.result;
                 var data = new Uint8Array(this.arrayBuffer);
@@ -70,9 +76,9 @@ export class DashboardComponent implements OnInit {
                 var worksheet = workbook.Sheets[first_sheet_name];
                 //adding here
                 this.sheetDataJson = XLSX.utils.sheet_to_json(worksheet,{raw:true})
-                if(this.sheetDataJson.length()!=60){
+                // if(this.sheetDataJson.length()!=60){
                     
-                }
+                // }
                 console.log("this.sheetDataJson", this.sheetDataJson)
                 this.districtId = this.sheetDataJson[0]['District ID']
                 this.schoolId = this.sheetDataJson[0]['School ID'];
@@ -86,7 +92,7 @@ export class DashboardComponent implements OnInit {
                 this.studentLanguageOfInstruction();
                 this.teacherLanguageOfInstruction();
             }
-            fileReader.readAsArrayBuffer(this.file);
+            // fileReader.readAsArrayBuffer(this.file);
     }
 
     categoryChange(event){
@@ -137,6 +143,8 @@ export class DashboardComponent implements OnInit {
 
   selectedCategory = this.categories[0].value;
 
+
+
   activityStructure(){
         let asMap = new Map();
         this.sheetDataJson.forEach(element => {
@@ -170,9 +178,6 @@ export class DashboardComponent implements OnInit {
         Object.assign(this, { testList })
        
       }
-
-      
-
 
       physicalGroup(){
         let physicalGroupMap = new Map([
