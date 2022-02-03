@@ -59,13 +59,12 @@
                     style="display: inline-block;" (change)="incomingfile($event)" accept=".xlsx">
                 <!-- <button mat-button style="background-color: #500000; color: white;"
                     (click)="Upload()" disabled="!fileAttached">Visualize</button> -->
-                  
-                <button mat-button style="background-color: #500000; color: white; margin-left: 10px;" (click)="download()">Download to PDF</button>
+
+                <button mat-button style="background-color: #500000; color: white; margin-left: 10px;"
+                    (click)="download()">Download to PDF</button>
             </mat-card>
         </div>
     </div>
-
-
 
     <mat-grid-list cols="2" rowHeight="2:1.25" *ngIf="allCategories">
         <mat-grid-tile>
@@ -156,13 +155,36 @@
 
 
     <div *ngIf="!allCategories && selectedCategory=='activityStructure'">
-        <p class="chartLabel">Activity Structure
-        <p>
-            <ngx-charts-bar-vertical [view]="view" [scheme]="colorScheme" [results]="activityStructureFinal"
-                [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
-                [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xActivtiyStructure"
-                [yAxisLabel]="yAxisLabel">
-            </ngx-charts-bar-vertical>
+
+
+        <mat-grid-list cols="2" rowHeight="2:1.25">
+
+            <p class="chartLabel">Activity Structure
+            </p>
+            <mat-grid-tile>
+                <ngx-charts-bar-vertical [view]="view" [scheme]="colorScheme" [results]="activityStructureFinal"
+                    [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
+                    [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+                    [xAxisLabel]="xActivtiyStructure" [yAxisLabel]="yAxisLabel">
+                </ngx-charts-bar-vertical>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <table mat-table [dataSource]="dataSource">
+                    <ng-container matColumnDef="name">
+                        <th mat-header-cell *matHeaderCellDef> Name </th>
+                        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="percentage">
+                        <th mat-header-cell *matHeaderCellDef> Percentage </th>
+                        <td mat-cell *matCellDef="let element"> {{element.value}} </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+            </mat-grid-tile>
+
+        </mat-grid-list>
     </div>
 
     <div *ngIf="!allCategories && selectedCategory=='communicationMode'">

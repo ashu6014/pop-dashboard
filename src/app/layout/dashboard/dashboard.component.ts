@@ -10,10 +10,14 @@ import html2canvas from 'html2canvas'
     templateUrl: './dashboard.component.html',
     styleUrls: ['./dashboard.component.scss']
 })
+
 export class DashboardComponent implements OnInit {
 
     ngOnInit() {
     }
+
+    displayedColumns: string[] = ['name', 'percentage'];
+    dataSource:any;
 
     download(){
         var element = document.getElementById('dashboard');
@@ -176,7 +180,9 @@ export class DashboardComponent implements OnInit {
         });
         this.activityStructureFinal = testList
         Object.assign(this, { testList })
-       
+        console.log("this.activityStructureFinal", this.activityStructureFinal )
+
+        this.dataSource = testList
       }
 
       physicalGroup(){
