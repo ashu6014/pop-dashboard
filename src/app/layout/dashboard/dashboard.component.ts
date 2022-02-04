@@ -18,6 +18,7 @@ export class DashboardComponent implements OnInit {
 
     displayedColumns: string[] = ['name', 'percentage'];
     dataSource:any;
+   
 
     download(){
         var element = document.getElementById('dashboard');
@@ -181,8 +182,6 @@ export class DashboardComponent implements OnInit {
         this.activityStructureFinal = testList
         Object.assign(this, { testList })
         console.log("this.activityStructureFinal", this.activityStructureFinal )
-
-        this.dataSource = testList
       }
 
       physicalGroup(){
@@ -215,6 +214,7 @@ export class DashboardComponent implements OnInit {
      
         Object.assign(this, { testList })
         this.physicalGroupList = testList;
+        this.dataSource = testList
       }
 
     mode(){
