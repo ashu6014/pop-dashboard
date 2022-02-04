@@ -214,7 +214,7 @@ export class DashboardComponent implements OnInit {
      
         Object.assign(this, { testList })
         this.physicalGroupList = testList;
-        this.dataSource = testList
+        // this.dataSource = testList
       }
 
     mode(){
