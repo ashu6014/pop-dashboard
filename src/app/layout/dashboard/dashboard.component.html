@@ -85,7 +85,7 @@
                 <p>
                     <ngx-charts-pie-chart [view]="view" [scheme]="colorScheme" [results]="physicalGroupList"
                         [gradient]="gradient" [legend]="showLegend" [legendPosition]="legendPosition"
-                        [labels]="showLabels" [doughnut]="isDoughnut">
+                        [labels]="showLabels" [doughnut]="isDoughnut" [showDataLabel]=true>
                     </ngx-charts-pie-chart>
             </div>
 
@@ -96,7 +96,7 @@
                 <ngx-charts-bar-vertical [view]="view" [scheme]="colorScheme" [results]="modeFinal"
                     [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
                     [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [showGridLines]="false"
-                    [xAxisLabel]="xModeOfCommunication" [yAxisLabel]="yAxisLabel">
+                    [xAxisLabel]="xModeOfCommunication" [yAxisLabel]="yAxisLabel" [showDataLabel]=true>
                 </ngx-charts-bar-vertical>
             </div>
         </mat-grid-tile>
@@ -106,7 +106,7 @@
                 <ngx-charts-bar-vertical [view]="view" [scheme]="colorScheme" [results]="eslStrategyFinal"
                     [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
                     [showGridLines]="false" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
-                    [xAxisLabel]="xESLStrategy" [yAxisLabel]="yAxisLabel">
+                    [xAxisLabel]="xESLStrategy" [yAxisLabel]="yAxisLabel" [showDataLabel]=true>
                 </ngx-charts-bar-vertical>
             </div>
 
@@ -117,7 +117,7 @@
                 <ngx-charts-bar-vertical [view]="view" [scheme]="colorScheme" [results]="languageContentFinal"
                     [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
                     [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xLanguageContent"
-                    [yAxisLabel]="yAxisLabel" [showGridLines]="false">
+                    [yAxisLabel]="yAxisLabel" [showGridLines]="false" [showDataLabel]=true>
                 </ngx-charts-bar-vertical>
             </div>
 
@@ -161,7 +161,7 @@
         <ngx-charts-bar-vertical [view]="view" [scheme]="colorScheme" [results]="activityStructureFinal"
             [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
             [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xActivtiyStructure"
-            [yAxisLabel]="yAxisLabel" [showGridLines]="false">
+            [yAxisLabel]="yAxisLabel" [showGridLines]="false" [showDataLabel]=true>
         </ngx-charts-bar-vertical>
 
 
@@ -187,7 +187,7 @@
         <ngx-charts-bar-vertical [view]="view" [scheme]="colorScheme" [results]="modeFinal" [gradient]="gradient"
             [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel"
             [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xModeOfCommunication" [yAxisLabel]="yAxisLabel"
-            [showGridLines]="false">
+            [showGridLines]="false" [showDataLabel]=true>
         </ngx-charts-bar-vertical>
 
         <table mat-table [dataSource]="modeFinal">
@@ -210,7 +210,7 @@
         <ngx-charts-bar-vertical [view]="view" [scheme]="colorScheme" [results]="eslStrategyFinal" [gradient]="gradient"
             [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="false" [showXAxisLabel]="showXAxisLabel"
             [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xESLStrategy" [yAxisLabel]="yAxisLabel"
-            [showGridLines]="false">
+            [showGridLines]="false" [showDataLabel]=true>
         </ngx-charts-bar-vertical>
         <table mat-table [dataSource]="eslStrategyFinal">
             <ng-container matColumnDef="name">
@@ -233,7 +233,7 @@
         <p>
             <ngx-charts-pie-chart [view]="view" [scheme]="colorScheme" [results]="physicalGroupList"
                 [gradient]="gradient" [legend]="showLegend" [legendPosition]="legendPosition" [labels]="showLabels"
-                [doughnut]="isDoughnut">
+                [doughnut]="isDoughnut" [showDataLabel]=true>
             </ngx-charts-pie-chart>
 
         <table mat-table [dataSource]="physicalGroupList">
@@ -255,7 +255,7 @@
 
         <ngx-charts-pie-chart [view]="view" [scheme]="colorScheme" [results]="languageContentCombined"
             [gradient]="gradient" [legend]="showLegend" [legendPosition]="legendPosition" [labels]="showLabels"
-            [doughnut]="isDoughnut">
+            [doughnut]="isDoughnut" [showDataLabel]=true>
         </ngx-charts-pie-chart>
 
         <table mat-table [dataSource]="languageContentFinal">
@@ -274,9 +274,10 @@
 
     <div *ngIf="!allCategories && selectedCategory=='languageOfInstruction'">
         
-                <p class="chartLabel">Language of Instruction(Student)</p>
+                <p class="chartLabel">Language of Instruction - Student & Teacher(below)</p>
                 <ngx-charts-pie-chart [view]="view" [scheme]="colorScheme" [results]="SLofIFinal" [gradient]="gradient"
-                    [legend]="showLegend" [legendPosition]="legendPosition" [labels]="showLabels" [doughnut]="isDoughnut">
+                    [legend]="showLegend" [legendPosition]="legendPosition" [labels]="showLabels" [doughnut]="isDoughnut"
+                    [showDataLabel]=true>
                 </ngx-charts-pie-chart>
         
                 <table mat-table [dataSource]="SLofIFinal">
