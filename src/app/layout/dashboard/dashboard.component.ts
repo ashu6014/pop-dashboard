@@ -154,7 +154,7 @@ export class DashboardComponent implements OnInit {
         let asMap = new Map();
         this.sheetDataJson.forEach(element => {
             if(!asMap.has(element["Activity Structure"])){
-                asMap.set(element["Activity Structure"], 0)
+                asMap.set(element["Activity Structure"], 1)
             }else{
                 let cnt = asMap.get(element["Activity Structure"]);
                 cnt+=1;
@@ -195,7 +195,7 @@ export class DashboardComponent implements OnInit {
         
         this.sheetDataJson.forEach(element => {
             if(!pgMap.has(element["Physical Group"])){
-                pgMap.set(element["Physical Group"], 0)
+                pgMap.set(element["Physical Group"], 1)
             }else{
                 let cnt = pgMap.get(element["Physical Group"]);
                 cnt+=1;
@@ -221,7 +221,7 @@ export class DashboardComponent implements OnInit {
         let mMap = new Map();
         this.sheetDataJson.forEach(element => {
             if(!mMap.has(element["Mode"])){
-                mMap.set(element["Mode"], 0)
+                mMap.set(element["Mode"], 1)
             }else{
                 let cnt = mMap.get(element["Mode"]);
                 cnt+=1;
@@ -255,13 +255,14 @@ export class DashboardComponent implements OnInit {
             let eslMap = new Map();
             this.sheetDataJson.forEach(element => {
                 if(!eslMap.has(element["ESL Strategy"])){
-                    eslMap.set(element["ESL Strategy"], 0)
+                    eslMap.set(element["ESL Strategy"], 1)
                 }else{
                     let cnt = eslMap.get(element["ESL Strategy"]);
                     cnt+=1;
                     eslMap.set(element["ESL Strategy"], cnt);
                 }
             });
+            
             let eslStrategyMap = new Map([
                 [1 , "Questioning Strategies"], [2, "Academic Language Scaffolding"], [3, "Visual scaffolding"], [4, "Manipulatives and Realia"],
                 [5 , "Advance Organizers"], [6, "Collaborative / Cooperative Grouping"], [7, "Content connections"], [8, "L1 Clarification"],
@@ -269,9 +270,9 @@ export class DashboardComponent implements OnInit {
             ]);
             let testList = [];
             eslMap.forEach((value:number, key:number)=> {
+                console.log("value", value, "key", key)
                 if(value>0){
                     let item = {
-                        
                         name: eslStrategyMap.get(key),
                         value: Math.round(eslMap.get(key)*100/60)
                     };
@@ -314,30 +315,30 @@ export class DashboardComponent implements OnInit {
         this.languageContentFinal = [
             {
                 name: "Social routines",
-                value: (lcMap.get(1))*100/60
+                value: Math.round((lcMap.get(1))*100/60)
             },
             {
                 name: "Academic routines",
-                value: (lcMap.get(2))*100/60
+                value:  Math.round((lcMap.get(2))*100/60)
             },
             {
                 name: "Light Cognitive",
-                value: (lcMap.get(3))*100/60
+                value: Math.round((lcMap.get(3))*100/60)
             },
             {
                 name: "Dense Cognitive",
-                value: (lcMap.get(4))*100/60
+                value: Math.round((lcMap.get(4))*100/60)
             },
         ]
 
         this.languageContentCombined = [
             {
                 name: "Social routines + Academic routines",
-                value: (lcMap.get(1) + lcMap.get(2) )*100/60
+                value: Math.round(lcMap.get(1) + lcMap.get(2) )*100/60
             },
             {
                 name: "Light Cognitive + Dense Cognitive",
-                value: (lcMap.get(3) + lcMap.get(4) )*100/60
+                value: Math.round(lcMap.get(3) + lcMap.get(4) )*100/60
             }
         ]
         let testlist = this.languageContentFinal;
@@ -354,7 +355,7 @@ export class DashboardComponent implements OnInit {
         
         this.sheetDataJson.forEach(element => {
             if(!SlofIMap.has(element["Lang. of Instruction(S)"])){
-                SlofIMap.set(element["Lang. of Instruction(S)"], 0)
+                SlofIMap.set(element["Lang. of Instruction(S)"], 1)
             }else{
                 let cnt = SlofIMap.get(element["Lang. of Instruction(S)"]);
                 cnt+=1;
@@ -387,7 +388,7 @@ export class DashboardComponent implements OnInit {
         let TlofIMap = new Map();
         this.sheetDataJson.forEach(element => {
             if(!TlofIMap.has(element["Lang. of Instruction(T)"])){
-                TlofIMap.set(element["Lang. of Instruction(T)"], 0)
+                TlofIMap.set(element["Lang. of Instruction(T)"], 1)
             }else{
                 let cnt = TlofIMap.get(element["Lang. of Instruction(T)"]);
                 cnt+=1;
